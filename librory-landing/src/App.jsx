@@ -29,12 +29,12 @@ export default function App() {
         <JoinSanctuary />
       </main>
 
-      <footer className="border-t py-10 transition-colors duration-500" style={{ borderColor: 'var(--line)', background: 'color-mix(in srgb, var(--paper) 40%, transparent)' }}>
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-4 items-center justify-between text-xs font-sans tracking-wide" style={{ color: 'var(--muted)' }}>
+      <footer className="border-t border-line py-10 transition-colors duration-500 bg-[color-mix(in_srgb,var(--paper)_40%,transparent)]">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-4 items-center justify-between text-xs font-sans tracking-wide text-muted">
           <p>© 2026 Librory. Made with thoughtful care for slow minds everywhere.</p>
           <div className="flex gap-8 font-semibold">
-            <a href="#philosophy" className="hover:text-[color:var(--ink)] transition-colors">Manifesto</a>
-            <a href="#" className="hover:text-[color:var(--ink)] transition-colors">Privacy & Autonomy</a>
+            <a href="#philosophy" className="hover:text-ink transition-colors">Manifesto</a>
+            <a href="#" className="hover:text-ink transition-colors">Privacy & Autonomy</a>
           </div>
         </div>
       </footer>

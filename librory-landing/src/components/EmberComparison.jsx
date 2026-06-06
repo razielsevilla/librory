@@ -42,24 +42,24 @@ export default function EmberComparison() {
   return (
     <section id="ember" className="max-w-7xl mx-auto px-5 md:px-8 py-24">
       <div className="max-w-3xl mb-12">
-        <div className="font-sans text-[0.7rem] tracking-[0.16em] uppercase font-bold mb-4" style={{ color: 'var(--accent)' }}>Embers vs Streaks</div>
-        <h2 className="font-display text-3xl md:text-5xl leading-[1.08] tracking-tight mb-5 font-bold" style={{ color: 'var(--ink)' }}>An elegant alternative to stressful gamification.</h2>
-        <p className="leading-[1.75]" style={{ color: 'var(--muted)' }}>Streaks represent a brittle way of encouraging habits: missing one single day resets your score to zero and breeds discouragement. Librory replaces the aggressive fire streak with an "ember". An ember never resets; it simply glows softer when you're away, and brightens beautifully when you return.</p>
+        <div className="font-sans text-[0.7rem] tracking-[0.16em] uppercase font-bold mb-4 text-accent">Embers vs Streaks</div>
+        <h2 className="font-display text-3xl md:text-5xl leading-[1.08] tracking-tight mb-5 font-bold text-ink">An elegant alternative to stressful gamification.</h2>
+        <p className="leading-[1.75] text-muted">Streaks represent a brittle way of encouraging habits: missing one single day resets your score to zero and breeds discouragement. Librory replaces the aggressive fire streak with an "ember". An ember never resets; it simply glows softer when you're away, and brightens beautifully when you return.</p>
       </div>
 
-      <div className="border p-3 md:p-4 rounded-[1.3rem] shadow-sm transition-colors duration-500" style={{ borderColor: 'var(--line)', background: 'color-mix(in srgb, var(--paper) 45%, transparent)' }}>
+      <div className="border border-line bg-[color-mix(in_srgb,var(--paper)_45%,transparent)] p-3 md:p-4 rounded-[1.3rem] shadow-sm transition-colors duration-500">
         <div className="grid md:grid-cols-2 rounded-[1rem] overflow-hidden min-h-[470px]">
           
           <div className="p-6 md:p-10 flex flex-col justify-between transition-colors duration-500 bg-white/20 dark:bg-black/10">
             <div>
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="font-sans text-[0.68rem] uppercase tracking-wider font-bold mb-2" style={{ color: 'var(--muted)' }}>The Gamified Streak Model</p>
-                  <h3 className="text-3xl font-display font-bold tracking-tight">{Math.max(0, 12 - days)} day streak</h3>
+                  <p className="font-sans text-[0.68rem] uppercase tracking-wider font-bold mb-2 text-muted">The Gamified Streak Model</p>
+                  <h3 className="text-3xl font-display font-bold tracking-tight text-ink">{Math.max(0, 12 - days)} day streak</h3>
                 </div>
                 <Flame color="#8C2C1B" size={24}/>
               </div>
-              <p className="font-sans text-[0.65rem] font-bold uppercase tracking-wider mb-3" style={{ color: 'var(--muted)' }}>14-Day Calendar Tracker</p>
+              <p className="font-sans text-[0.65rem] font-bold uppercase tracking-wider mb-3 text-muted">14-Day Calendar Tracker</p>
               
               <div className="grid grid-cols-7 gap-2 mb-8">
                 {daysOfWeek.map((dayLabel, idx) => {
@@ -68,24 +68,24 @@ export default function EmberComparison() {
                     <div key={idx} className={`w-8 h-8 rounded border flex items-center justify-center font-sans text-[0.67rem] tracking-tighter font-semibold transition-all duration-300 ${
                       isMissed 
                         ? 'bg-[#8C2C1B] text-white border-[#8C2C1B] scale-90' 
-                        : 'text-[var(--paper)]'
-                    }`} style={{ background: !isMissed ? 'var(--accent)' : '', borderColor: !isMissed ? 'var(--accent)' : '' }}>
+                        : 'text-paper bg-accent border-accent'
+                    }`}>
                       {isMissed ? (days >= 8 ? '×' : '!') : dayLabel}
                     </div>
                   );
                 })}
               </div>
 
-              <div className="border-l-2 pl-4 transition-all duration-300" style={{ borderColor: '#8C2C1B' }}>
+              <div className="border-l-2 pl-4 transition-all duration-300 border-[#8C2C1B] text-ink">
                 <p className="text-[1.05rem] font-medium opacity-90">{days < 3 ? 'Keep it up — consistency is everything.' : days < 8 ? 'You are slipping behind your goals.' : 'Your streak has expired. Start over.'}</p>
                 <p className="text-[0.8rem] mt-1 opacity-70">Traditional apps punish a pause with guilt and visual countdowns, treating books like metric chores.</p>
               </div>
             </div>
 
             <div className="mt-8">
-              <label className="block font-sans text-[0.68rem] uppercase tracking-wider font-bold mb-2" style={{ color: 'var(--muted)' }}>Simulate Days Away from Reading</label>
-              <input type="range" min="0" max="14" value={days} onChange={(e) => setDays(Number(e.target.value))} className="w-full h-1.5 rounded-lg appearance-none cursor-pointer" style={{ accentColor: 'var(--accent)', background: 'var(--line)' }} />
-              <div className="flex justify-between text-[0.65rem] font-sans font-bold uppercase tracking-wider mt-2" style={{ color: 'var(--muted)' }}>
+              <label className="block font-sans text-[0.68rem] uppercase tracking-wider font-bold mb-2 text-muted">Simulate Days Away from Reading</label>
+              <input type="range" min="0" max="14" value={days} onChange={(e) => setDays(Number(e.target.value))} className="w-full h-1.5 rounded-lg appearance-none cursor-pointer bg-line accent-accent" />
+              <div className="flex justify-between text-[0.65rem] font-sans font-bold uppercase tracking-wider mt-2 text-muted">
                 <span>0 days active</span><span>14 days away</span>
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function EmberComparison() {
 
         </div>
 
-        <p className="text-center text-[0.82rem] italic mt-5" style={{ color: 'var(--muted)' }}>
+        <p className="text-center text-[0.82rem] italic mt-5 text-muted">
           Drag the comparison slider to explore how embers wait patiently compared to brittle streak metrics.
         </p>
 

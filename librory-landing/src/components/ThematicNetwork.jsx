@@ -119,7 +119,7 @@ export default function ThematicNetwork() {
       const m = mouseRef.current; m.active = true; const coords = getCoords(e);
       m.x = coords.x; m.y = coords.y;
       for (let n of nodes) {
-        if (Math.hash = Math.sqrt((m.x - n.x) ** 2 + (m.y - n.y) ** 2) < n.r + 10) {
+        if (Math.sqrt((m.x - n.x) ** 2 + (m.y - n.y) ** 2) < n.r + 10) {
           m.draggedNode = n; break;
         }
       }
@@ -142,17 +142,17 @@ export default function ThematicNetwork() {
     <section className="max-w-7xl mx-auto px-5 md:px-8 py-12">
       <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-20 items-center">
         <div>
-          <div className="font-sans text-[0.7rem] tracking-[0.16em] uppercase font-bold mb-4" style={{ color: 'var(--accent)' }}>Thematic Synthesis</div>
-          <h2 className="font-display text-3xl md:text-5xl leading-[1.08] tracking-tight mb-5 font-bold" style={{ color: 'var(--ink)' }}>Map the unseen threads across your reading life.</h2>
-          <p className="leading-[1.75] mb-8" style={{ color: 'var(--muted)' }}>Ideas do not exist in separate vacuum chambers. The deep sorrow in a memoir you read last autumn links naturally with the philosophical loneliness in a sci-fi novel you picked up this afternoon. Librory automatically traces core themes and marginal notes, constructing an interactive tapestry of your intellectual journey.</p>
+          <div className="font-sans text-[0.7rem] tracking-[0.16em] uppercase font-bold mb-4 text-accent">Thematic Synthesis</div>
+          <h2 className="font-display text-3xl md:text-5xl leading-[1.08] tracking-tight mb-5 font-bold text-ink">Map the unseen threads across your reading life.</h2>
+          <p className="leading-[1.75] mb-8 text-muted">Ideas do not exist in separate vacuum chambers. The deep sorrow in a memoir you read last autumn links naturally with the philosophical loneliness in a sci-fi novel you picked up this afternoon. Librory automatically traces core themes and marginal notes, constructing an interactive tapestry of your intellectual journey.</p>
           <div className="flex flex-wrap gap-4 font-sans text-[0.74rem] uppercase font-bold tracking-wider">
-            <div className="flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full" style={{ background: '#A87658' }}></span><span>Literature</span></div>
-            <div className="flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full" style={{ background: '#6E8A7F' }}></span><span>Central Themes</span></div>
-            <div className="flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full" style={{ background: '#C9B07F' }}></span><span>Marginalia Notes</span></div>
+            <div className="flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full bg-[#A87658]"></span><span>Literature</span></div>
+            <div className="flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full bg-[#6E8A7F]"></span><span>Central Themes</span></div>
+            <div className="flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full bg-[#C9B07F]"></span><span>Marginalia Notes</span></div>
           </div>
         </div>
-        <div className="border p-3 rounded-[1.3rem] shadow-sm transition-colors" style={{ borderColor: 'var(--line)', background: 'color-mix(in srgb, var(--paper) 45%, transparent)' }}>
-          <div className="h-[500px] rounded-[1rem] overflow-hidden cursor-grab active:cursor-grabbing border bg-stone-900/[0.02]" style={{ borderColor: 'var(--line)' }}>
+        <div className="border border-line bg-[color-mix(in_srgb,var(--paper)_45%,transparent)] p-3 rounded-[1.3rem] shadow-sm transition-colors">
+          <div className="h-[500px] rounded-[1rem] overflow-hidden cursor-grab active:cursor-grabbing border border-line bg-stone-900/[0.02]">
             <canvas ref={canvasRef} className="w-full h-full block" />
           </div>
         </div>

@@ -27,15 +27,15 @@ export default function ScannerSimulator() {
     <section id="technology" className="max-w-7xl mx-auto px-5 md:px-8 py-24">
       <div className="grid lg:grid-cols-[0.88fr_1.12fr] gap-12 lg:gap-20 items-center">
         <div>
-          <div className="font-sans text-[0.7rem] tracking-[0.16em] uppercase font-bold mb-4" style={{ color: 'var(--accent)' }}>Physical Bookcase Intelligence</div>
-          <h2 className="font-display text-3xl md:text-5xl leading-[1.08] tracking-tight mb-5 font-bold" style={{ color: 'var(--ink)' }}>A digital shelf made by scanning your physical spine.</h2>
-          <p className="leading-[1.75] mb-7" style={{ color: 'var(--muted)' }}>Keep your real books. Simply take a snapshot of your physical bookcase, and our light computer-vision model isolates individual spines, straightens alignment, maps authors, and catalogues them effortlessly in seconds. No tedious manual searching.</p>
-          <button onClick={handleScan} className="inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 font-sans text-[0.68rem] font-bold uppercase tracking-widest text-white shadow-md transition-all hover:brightness-110" style={{ background: 'var(--ink)', color: 'var(--paper)' }}>
+          <div className="font-sans text-[0.7rem] tracking-[0.16em] uppercase font-bold mb-4 text-accent">Physical Bookcase Intelligence</div>
+          <h2 className="font-display text-3xl md:text-5xl leading-[1.08] tracking-tight mb-5 font-bold text-ink">A digital shelf made by scanning your physical spine.</h2>
+          <p className="leading-[1.75] mb-7 text-muted">Keep your real books. Simply take a snapshot of your physical bookcase, and our light computer-vision model isolates individual spines, straightens alignment, maps authors, and catalogues them effortlessly in seconds. No tedious manual searching.</p>
+          <button onClick={handleScan} className="inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 font-sans text-[0.68rem] font-bold uppercase tracking-widest text-paper shadow-md transition-all hover:brightness-110 bg-ink">
             <Scan size={14}/> Scan Book Shelf
           </button>
         </div>
 
-        <div className="border p-3 md:p-4 rounded-[1.3rem] shadow-sm transition-colors duration-500" style={{ borderColor: 'var(--line)', background: 'color-mix(in srgb, var(--paper) 45%, transparent)' }}>
+        <div className="border border-line bg-[color-mix(in_srgb,var(--paper)_45%,transparent)] p-3 md:p-4 rounded-[1.3rem] shadow-sm transition-colors duration-500">
           <div className="relative overflow-hidden h-[470px] rounded-[1rem] bg-[#191512] border border-white/10">
             <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=800&auto=format&fit=crop" alt="Shelf" className={`w-full h-full object-cover opacity-40 transition-transform duration-1000 ${step >= 0 && step < 3 ? 'scale-[1.02]' : ''}`} />
             <div className="absolute inset-0 opacity-[0.2] bg-[linear-gradient(rgba(231,214,180,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(231,214,180,0.1)_1px,transparent_1px)] bg-[size:34px_34px]"></div>

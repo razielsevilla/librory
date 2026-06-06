@@ -2,11 +2,26 @@ import React from 'react';
 
 export default function Manifesto() {
   return (
-    <section id="philosophy" className="py-20 md:py-28 border-y transition-colors duration-500" style={{ borderColor: 'var(--line)', background: 'color-mix(in srgb, var(--paper) 30%, transparent)' }}>
-      <div className="max-w-4xl mx-auto px-5 text-center">
-        <div className="font-sans text-[0.72rem] tracking-[0.16em] uppercase font-bold mb-5" style={{ color: 'var(--accent)' }}>The Librory Manifesto</div>
-        <h2 className="font-display text-3xl md:text-5xl max-w-3xl mx-auto leading-[1.1] tracking-tight mb-6 font-bold" style={{ color: 'var(--ink)' }}>Your attention is a garden, not a manufacturing plant.</h2>
-        <p className="text-base md:text-lg max-w-2xl mx-auto leading-[1.8]" style={{ color: 'var(--muted)' }}>Modern reading apps are built like step trackers for high-productivity executives. They gamify literature with hostile fire icons, leaderboard rankings, and push alerts that make you feel guilty for simply living your life. Librory believes reading is a retreat, not a race. When you step away for a week or a month, your reading spark doesn't die. It rests, waiting gracefully for you to open the cover.</p>
+    <section id="philosophy" className="py-20 md:py-28 border-y transition-colors duration-500 border-line bg-[color-mix(in_srgb,var(--paper)_30%,transparent)]">
+      <div className="max-w-[800px] mx-auto text-center animate-[rise_0.9s_ease_0.2s_forwards] opacity-0">
+        <h2 className="text-3xl md:text-5xl font-display mb-8 leading-[1.3] text-ink">
+          Your attention is a garden, not an engagement metric.
+        </h2>
+        <div className="space-y-6 text-lg text-muted">
+          <p>
+            When did reading become a competition? We built Librory because we believe books should be an escape from the exhausting digital treadmill, not an extension of it.
+          </p>
+          <p>
+            There are no rigid reading goals here. No algorithms telling you what to read next. If you set a book down for three months, your reading flame simply waits for your return—gently glowing, totally free from judgment.
+          </p>
+        </div>
+        <div className="mt-14 inline-block transform -rotate-3 hover:rotate-0 transition-transform duration-500">
+          <div className="relative border border-line rounded-xl px-12 py-10 shadow-glow bg-[color-mix(in_srgb,var(--paper)_90%,transparent)] backdrop-blur-sm">
+            <span className="absolute -top-4 -left-4 text-5xl text-accent opacity-30 font-display">"</span>
+            <p className="font-script text-3xl leading-[1.2] text-ink max-w-sm">Slow down. Read at the speed of thought.</p>
+            <span className="absolute -bottom-6 -right-4 text-5xl text-accent opacity-30 font-display rotate-180">"</span>
+          </div>
+        </div>
       </div>
     </section>
   );
