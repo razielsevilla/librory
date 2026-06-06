@@ -2,26 +2,30 @@ import React from 'react';
 
 export default function JoinSanctuary() {
   return (
-    <section id="join" className="max-w-5xl mx-auto px-5 md:px-8 py-20 md:py-32 text-center">
-      <div className="font-sans text-[0.7rem] tracking-[0.16em] uppercase font-bold mb-5 text-accent">
-        Slow and Conscious Reading
+    <section id="join" className="max-w-page mx-auto px-5 md:px-8 py-20 md:py-32 flex flex-col items-center text-center">
+      
+      <div className="text-xl text-rule mb-8 opacity-60">✦</div>
+      
+      <div className="eyebrow mb-8">
+        <span className="n-no">N° 06</span> — COLOPHON
       </div>
       
-      <h2 className="font-display text-4xl md:text-6xl leading-[1.05] tracking-tight mb-5 font-bold text-ink">
+      <h2 className="font-display text-h2-lg md:text-h1 leading-[1.0] md:leading-[0.96] tracking-[-0.02em] mb-12 text-ink max-w-measure mx-auto">
         A home where your books are waiting.
       </h2>
       
-      <p className="text-base md:text-lg max-w-2xl mx-auto leading-[1.75] mb-8 text-muted">
-        Rediscover literature on your own human terms. Librory is completely private, 
-        deeply intentional, and free to get started.
-      </p>
-      
       <a 
         href="#top" 
-        className="inline-flex rounded-full px-8 py-4 font-sans text-[0.7rem] font-bold tracking-widest uppercase transition-all duration-300 shadow-glow hover:brightness-110 hover:-translate-y-0.5 bg-ink text-paper"
+        className="bracketed font-sans text-eyebrow font-bold uppercase transition-colors bg-accent text-ink hover:bg-ink hover:text-page px-6 py-3 mb-24"
       >
         Enter the Sanctuary
       </a>
+
+      <div className="max-w-colophon mx-auto flex flex-col items-center font-sans text-[0.62rem] uppercase tracking-[0.2em] text-muted leading-[1.8]">
+        <p>Librory · The Sanctuary Press · MMXXVI</p>
+        <p>Printed in warm light.</p>
+      </div>
+      
     </section>
   );
 }
