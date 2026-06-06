@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --page: #EFE4E2;
+  --paper: #F7F2EE;
+  --ink: #2A1F14;
+  --muted: #7D6755;
+  --line: #CEC8C5;
+  --accent: #8B6F4E;
+  --accent-soft: #CBB99A;
+  --glow: rgba(139, 111, 78, 0.15);
+  --hero-filter: sepia(0.05) saturate(0.95) brightness(1.02);
+}
+
+body.ambient-morning {
+  --page: #E8EEF0;
+  --paper: #F4F8F9;
+  --ink: #202F2B;
+  --muted: #627771;
+  --line: #CBD6D2;
+  --accent: #557970;
+  --accent-soft: #BDD1CB;
+  --glow: rgba(85, 121, 112, 0.12);
+  --hero-filter: saturate(0.95) brightness(1.05);
+}
+
+body.ambient-evening {
+  --page: #E7D7CA;
+  --paper: #FAF2EB;
+  --ink: #32231A;
+  --muted: #8F6D59;
+  --line: #DAD2C9;
+  --accent: #A26547;
+  --accent-soft: #DBB8A4;
+  --glow: rgba(162, 101, 71, 0.18);
+  --hero-filter: sepia(0.12) saturate(1.04) brightness(0.98);
+}
+
+body.ambient-candle {
+  --page: #1F1713;
+  --paper: #2B211C;
+  --ink: #F4E8DB;
+  --muted: #BFA58F;
+  --line: #4F3D34;
+  --accent: #D09355;
+  --accent-soft: #8C6A4F;
+  --glow: rgba(208, 147, 85, 0.22);
+  --hero-filter: sepia(0.25) saturate(1.15) brightness(0.78);
+}
+
+body {
+  @apply transition-colors duration-700 ease-in-out;
+  background-color: var(--page);
+  color: var(--ink);
+  font-family: 'Lora', serif;
+}
+
+.paper-texture {
+  background-image:
+    radial-gradient(circle at 12% 20%, rgba(100, 70, 45, 0.03) 0 1px, transparent 1px),
+    radial-gradient(circle at 80% 40%, rgba(100, 70, 45, 0.02) 0 1px, transparent 1px);
+  background-size: 22px 22px, 30px 30px;
+}
+
+.nav-link {
+  @apply relative;
+}
+
+.nav-link:after {
+  content: "";
+  @apply absolute left-0 bottom-[-7px] w-0 h-[1px] transition-all duration-300;
+  background: var(--accent);
+}
+
+.nav-link:hover:after {
+  @apply w-full;
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scan {
+  0% {
+    top: -20%;
+  }
+
+  50% {
+    top: 50%;
+  }
+
+  100% {
+    top: 110%;
+  }
+}
+
+@keyframes tagIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 35px rgba(230, 145, 82, 0.6));
+  }
+}
