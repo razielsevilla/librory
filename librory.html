@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librory - Read without Judgement</title>
+
+    <!-- Tailwind CSS for utility structures -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- SortableJS for physical drag-and-drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+    <!-- Google Fonts for Editorial & Literary Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Reenie+Beanie&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons for tactical interfaces -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Ambient Paper variables as default */
+            --page: #ECE2D8;
+            --paper-deep: #DFD4C8;
+            --ink: #221A12;
+            --ink-soft: #4A3E31;
+            --muted: #6B5E50;
+            --rule: #CBBCAE;
+            --rule-soft: #DFD4C8;
+            --accent: #8B5A2B;
+            --accent-soft: #EFE4D9;
+            --ember: #C8612A;
+            --shadow-opacity: 0.15;
+        }
+
+        /* Ambient Morning variables */
+        .theme-morning {
+            --page: #E2E8E6;
+            --paper-deep: #D2DAD7;
+            --ink: #1E2A26;
+            --ink-soft: #394E47;
+            --muted: #59736A;
+            --rule: #BAC5C1;
+            --rule-soft: #CDDAD6;
+            --accent: #4F6F65;
+            --accent-soft: #D3E0DC;
+            --ember: #B85A2E;
+            --shadow-opacity: 0.12;
+        }
+
+        /* Ambient Dusk variables */
+        .theme-dusk {
+            --page: #E8D4C2;
+            --paper-deep: #DABFAA;
+            --ink: #2C1A12;
+            --ink-soft: #543A2C;
+            --muted: #7A5F4E;
+            --rule: #CBB09B;
+            --rule-soft: #DAC2AF;
+            --accent: #A04E2A;
+            --accent-soft: #E4D0BF;
+            --ember: #C24B1E;
+            --shadow-opacity: 0.18;
+        }
+
+        /* Ambient Candle variables */
+        .theme-candle {
+            --page: #1A130E;
+            --paper-deep: #120C09;
+            --ink: #F1E5D2;
+            --ink-soft: #D5C7B3;
+            --muted: #9E8D79;
+            --rule: #2C2017;
+            --rule-soft: #241A12;
+            --accent: #D08A4A;
+            --accent-soft: #2E2217;
+            --ember: #E2915A;
+            --shadow-opacity: 0.45;
+        }
+
+        /* Typography declarations conforming to branding guide */
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background-color: #0b0806;
+            color: var(--ink);
+            line-height: 1.78;
+            overflow-x: hidden;
+        }
+
+        .font-serif-display {
+            font-family: 'Playfair Display', Georgia, serif;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        .font-sans-editorial {
+            font-family: 'Libre Franklin', sans-serif;
+        }
+
+        .font-script {
+            font-family: 'Reenie Beanie', cursive;
+            line-height: 1.1;
+        }
+
+        /* Editorial Motifs & Utility classes */
+        .drop-cap {
+            float: left;
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 5.25rem;
+            line-height: 0.72;
+            padding-right: 0.65rem;
+            margin-top: 0.3rem;
+            color: var(--ember);
+            font-weight: bold;
+        }
+
+        .marginalia {
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 1.85rem;
+            line-height: 1.1;
+            transform: rotate(-2deg);
+            color: var(--accent);
+        }
+
+        .eyebrow {
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .bracketed::before {
+            content: "[ ";
+            font-family: 'Libre Franklin', sans-serif;
+            font-weight: 300;
+            color: var(--accent);
+        }
+
+        .bracketed::after {
+            content: " ]";
+            font-family: 'Libre Franklin', sans-serif;
+            font-weight: 300;
+            color: var(--accent);
+        }
+
+        .asterism {
+            text-align: center;
+            color: var(--accent);
+            letter-spacing: 0.5em;
+            margin: 1.8rem 0;
+            font-size: 1.25rem;
+        }
+
+        .drop-cap {
+            float: left;
+            font-size: 3.5em;
+            line-height: 0.8;
+            padding-top: 0.1em;
+            padding-right: 0.1em;
+            padding-left: 0.05em;
+            color: var(--accent);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .dingbat-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            color: var(--accent);
+            opacity: 0.45;
+            margin: 1.5rem 0;
+        }
+
+        .dingbat-row::before,
+        .dingbat-row::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: var(--rule);
+        }
+
+        /* Tactile Realism Textures & Effects */
+        .paper-grain {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 99;
+            opacity: 0.08;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        .theme-candle .paper-grain {
+            mix-blend-mode: screen;
+            opacity: 0.04;
+        }
+
+        .vignette {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 98;
+            background: radial-gradient(circle, transparent 40%, rgba(34, 26, 18, 0.15) 100%);
+            transition: background 0.8s ease-in-out;
+        }
+
+        .theme-candle .vignette {
+            background: radial-gradient(circle, transparent 35%, rgba(0, 0, 0, 0.65) 100%);
+        }
+
+        /* Smooth Theme Transitions */
+        .ambient-transition {
+            transition: background-color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1),
+                color 0.5s ease,
+                border-color 0.5s ease,
+                box-shadow 0.8s ease;
+        }
+
+        /* Ambient Shadows & Glows */
+        .shadow-glow {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, var(--shadow-opacity)),
+                0 0 20px -5px rgba(200, 97, 42, 0.1);
+        }
+
+        .shadow-seal {
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(34, 26, 18, 0.05);
+            border: 1px solid var(--rule);
+        }
+
+        /* Hide number input spin buttons */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        /* Hide textareas and specific containers scrollbars */
+        textarea::-webkit-scrollbar,
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        textarea,
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Custom Breathing animations */
+        @keyframes orb-pulse {
+            0%, 100% {
+                transform: scale(1.28);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.23);
+                opacity: 0.95;
+            }
+        }
+
+        .animate-orb-pulse {
+            animation: orb-pulse 1.4s infinite ease-in-out;
+        }
+
+        @keyframes flare-up {
+            0% { filter: drop-shadow(0 0 55px rgba(255, 175, 40, 0.95)); transform: scale(1.28); }
+            30% { filter: drop-shadow(0 0 100px rgba(255, 175, 40, 1)); transform: scale(1.4); }
+            100% { filter: drop-shadow(0 0 55px rgba(255, 175, 40, 0.95)); transform: scale(1.28); }
+        }
+        .animate-flare {
+            animation: flare-up 0.8s ease-out;
+        }
+
+        /* Custom Scrollbar for cozy overflow lists */
+        .cozy-scroll::-webkit-scrollbar {
+            width: 3px;
+            height: 3px;
+        }
+
+        .cozy-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .cozy-scroll::-webkit-scrollbar-thumb {
+            background: var(--rule);
+            border-radius: 9px;
+        }
+
+        /* Interactive ranges */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--rule-soft);
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        /* Removed old ribbed slider CSS */
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-start md:justify-center min-h-screen p-0 md:p-6 select-none">
+
+
+    <!-- Outer Mobile Shell Wrapper representing high-end native feel on desktop -->
+    <div id="deviceShell"
+        class="relative w-full max-w-[430px] h-screen md:h-[880px] bg-[#1a130e] md:rounded-[44px] md:shadow-[0_25px_65px_-12px_rgba(0,0,0,0.75)] overflow-hidden border-0 md:border-[10px] border-[#221a12] flex flex-col transition-all duration-800 theme-paper">
+
+        <!-- Live physical paper texture layers -->
+        <div class="paper-grain"></div>
+        <div class="vignette"></div>
+
+        <!-- Custom Notification Alerts (Toast) -->
+        <div id="toast"
+            class="absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-stone-900/90 text-amber-100 border border-amber-900/25 px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2 text-xs font-sans-editorial opacity-0 translate-y-[-10px] pointer-events-none transition-all duration-500">
+            <i class="fa-solid fa-feather text-amber-500"></i>
+            <span id="toastMsg">Your notes have been committed.</span>
+        </div>
+
+        <!-- Simulated Mobile Status Bar -->
+        <div
+            class="flex justify-between items-center px-7 pt-4 pb-2 text-[10px] font-sans-editorial tracking-wider uppercase opacity-55 z-40 select-none text-[var(--ink)] pointer-events-none">
+            <span id="statusClock">12:00</span>
+            <div class="flex items-center gap-1.5 font-bold">
+                <i class="fa-solid fa-feather-pointed"></i>
+                <span class="bracketed">sandbox</span>
+            </div>
+        </div>
+
+        <!-- Viewports scrolling core content -->
+        <div id="scrollContainer" class="flex-1 overflow-hidden relative flex flex-col">
+
+            <!-- ================= SCREEN: THE HEARTH ================= -->
+            <section id="screen-hearth"
+                class="absolute inset-0 flex flex-col p-6 overflow-y-auto cozy-scroll pb-24 z-10 transition-all duration-700 ambient-transition"
+                style="background-color: var(--page); color: var(--ink);">
+
+                <!-- Cozy Header -->
+                <div class="flex justify-between items-start mt-2">
+                    <div>
+                        <span class="eyebrow block">Today's Refuge</span>
+                        <h1 class="text-4xl font-serif-display font-bold mt-1 text-[var(--ink)]">The Hearth</h1>
+                    </div>
+
+                    <!-- Manual Lighting override controls -->
+                    <div class="relative">
+                        <button onclick="toggleAmbientMenu()"
+                            class="w-8 h-8 rounded-full bg-[var(--paper-deep)] border border-[var(--rule)] flex items-center justify-center shadow-sm hover:border-[var(--accent)] transition-all z-20 relative"
+                            title="Lighting Menu">
+                            <i class="fa-solid fa-lightbulb opacity-80 text-[var(--ink)]"></i>
+                        </button>
+                        <div id="ambientMenu" 
+                            class="absolute top-full right-0 mt-2 flex flex-col gap-1.5 p-1.5 rounded-full bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow opacity-0 pointer-events-none transition-all duration-300 translate-y-[-10px] z-10">
+                            <button onclick="changeTheme('paper'); toggleAmbientMenu()"
+                                class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] transition-all hover:opacity-100 hover:bg-[var(--accent)] hover:text-[var(--page)]"
+                                id="btn-paper" title="Classic Paper"><i class="fa-solid fa-scroll"></i></button>
+                            <button onclick="changeTheme('morning'); toggleAmbientMenu()"
+                                class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] transition-all hover:opacity-100 hover:bg-[var(--accent)] hover:text-[var(--page)]"
+                                id="btn-morning" title="Morning Light"><i class="fa-solid fa-cloud-sun"></i></button>
+                            <button onclick="changeTheme('dusk'); toggleAmbientMenu()"
+                                class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] transition-all hover:opacity-100 hover:bg-[var(--accent)] hover:text-[var(--page)]"
+                                id="btn-dusk" title="Golden Dusk"><i class="fa-solid fa-cloud-moon"></i></button>
+                            <button onclick="changeTheme('candle'); toggleAmbientMenu()"
+                                class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] transition-all hover:opacity-100 hover:bg-[var(--accent)] hover:text-[var(--page)]"
+                                id="btn-candle" title="Candle Sanctuary"><i class="fa-solid fa-fire-flame-curved"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dingbat-row my-8">❦</div>
+
+                <!-- The Interactive Ember Component -->
+                <div
+                    class="rounded-3xl p-6 flex flex-col items-center justify-center text-center relative bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow mb-10 transition-colors duration-700">
+                    
+                    <!-- Landing Page Ember Visual -->
+                    <div class="relative w-full flex items-center justify-center py-8 mb-4 cursor-pointer" onclick="igniteEmber()">
+                        <div class="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-r from-[rgba(255,165,0,0.1)] to-transparent pointer-events-none"></div>
+                        <div id="emberGraphic" class="w-[120px] h-[120px] rounded-full transition-all duration-500 animate-orb-pulse" style="
+                            background: radial-gradient(circle, #FFFFFF 0%, #FFEFA6 20%, #FFA500 50%, var(--ember) 75%, transparent 88%);
+                            filter: drop-shadow(0 0 55px rgba(255, 175, 40, 0.95));
+                        "></div>
+                    </div>
+
+                    <h3 class="font-serif-display text-lg font-bold mt-2" style="color: var(--ink);">The Reading Fire Is Steady</h3>
+                    <p id="emberTip"
+                        class="text-xs mt-1.5 leading-relaxed opacity-75 font-sans-editorial max-w-[260px]">
+                        Your progress glows warmly. Tap the fire to fan its embers. Zero penalties for resting.
+                    </p>
+                </div>
+
+                <!-- Re-Entry Nudge Card Component -->
+                <div id="reentryCard"
+                    class="rounded-2xl p-6 border border-[var(--rule)] bg-[var(--paper-deep)] flex flex-col gap-4 relative shadow-glow mb-10 transition-all duration-500">
+                    <span class="eyebrow text-[var(--accent)]"><i class="fa-solid fa-compass mr-1.5"></i> Gentle
+                        Return</span>
+
+                    <div class="text-sm leading-relaxed">
+                        <span class="drop-cap">L</span>ife gets crowded, and we completely understand. You have been
+                        away for 4 quiet days. Would you like to sit down with just <strong
+                            class="text-[var(--accent)]">2 pages</strong> of your current book today?
+                    </div>
+
+                    <!-- Thematic Callback (Remembrance Engine) -->
+                    <div class="mt-1 p-4 bg-[var(--rule-soft)] rounded-xl border border-[var(--rule)] opacity-90 relative shadow-sm">
+                        <i class="fa-solid fa-quote-left absolute top-3 right-4 text-3xl opacity-5 text-[var(--accent)]"></i>
+                        <p class="text-[9px] font-sans-editorial uppercase tracking-widest text-[var(--muted)] mb-1.5">A thought from 3 months ago</p>
+                        <p class="text-xs font-serif italic text-[var(--ink)] leading-relaxed">"William Stoner learns how to suffer in pure silence."</p>
+                        <p class="text-[10px] font-sans-editorial mt-3 opacity-80 text-[var(--accent)] font-semibold">Perhaps <span class="italic">Dune</span> echoes this today?</p>
+                    </div>
+
+                    <div class="flex flex-col gap-2 pt-2 font-sans-editorial text-[13px] mt-1 w-full">
+                        <button onclick="beginFocusSession('Stoner')"
+                            class="w-full py-2.5 rounded-lg bg-[var(--accent)] hover:opacity-90 font-semibold shadow-sm transition-all"
+                            style="color: var(--page);">
+                            I am ready for 2 pages
+                        </button>
+                        <button onclick="dismissReentry()" class="w-full py-2 opacity-60 hover:opacity-100 transition-opacity italic">
+                            I will return when the time is right
+                        </button>
+                    </div>
+                </div>
+
+                <hr class="border-t border-[var(--rule)] opacity-50 w-24 mx-auto mb-10">
+
+                <!-- Currently Reading items list -->
+                <div class="space-y-4">
+                    <div class="flex justify-between items-baseline">
+                        <span class="eyebrow">Active Sanctuary</span>
+                        <button onclick="switchTab('shelf')" class="text-xs italic hover:underline opacity-85">See Full
+                            Shelf</button>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Book Card 1 -->
+                        <div onclick="showBookDetail('Stoner')"
+                            class="rounded-2xl p-4 bg-[var(--paper-deep)] border border-[var(--rule)] hover:border-[var(--accent)] shadow-glow transition-all duration-300 flex flex-col justify-between cursor-pointer relative group">
+                            <div
+                                class="h-36 rounded-lg bg-[#2e2219] shadow-inner mb-4 flex flex-col justify-end p-3 relative overflow-hidden">
+                                <!-- Linen Noise Texture -->
+                                <div class="absolute inset-0 opacity-10 mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+                                <!-- Spine Shadow -->
+                                <div class="absolute left-0 top-0 w-2.5 h-full bg-gradient-to-r from-black/60 to-transparent"></div>
+                                <!-- Bookmark Ribbon -->
+                                <div class="absolute top-0 right-4 w-2 h-12 bg-[var(--accent)] shadow-md rounded-b-sm z-10 opacity-90 group-hover:h-14 transition-all duration-300"></div>
+                                
+                                <span class="font-serif-display text-base font-bold bg-clip-text text-transparent bg-gradient-to-br from-[#f5ecd2] to-[#bda67a] relative z-20">Stoner</span>
+                                <span
+                                    class="text-[10px] text-[#f5ecd2]/60 font-sans-editorial font-semibold relative z-20 tracking-wider uppercase">Williams</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="eyebrow block text-[9px] opacity-70">Bookmarks</span>
+                                    <span class="text-xs font-serif-display font-bold mt-0.5 text-[var(--accent)]">42%</span>
+                                </div>
+                                <span class="text-[10px] font-sans-editorial opacity-60">p. 118</span>
+                            </div>
+                        </div>
+
+                        <!-- Book Card 2 -->
+                        <div onclick="showBookDetail('Dune')"
+                            class="rounded-2xl p-4 bg-[var(--paper-deep)] border border-[var(--rule)] hover:border-[var(--accent)] shadow-glow transition-all duration-300 flex flex-col justify-between cursor-pointer relative group">
+                            <div
+                                class="h-36 rounded-lg bg-[#1a233a] shadow-inner mb-4 flex flex-col justify-end p-3 relative overflow-hidden">
+                                <!-- Linen Noise Texture -->
+                                <div class="absolute inset-0 opacity-10 mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+                                <!-- Spine Shadow -->
+                                <div class="absolute left-0 top-0 w-2.5 h-full bg-gradient-to-r from-black/60 to-transparent"></div>
+                                <!-- Bookmark Ribbon -->
+                                <div class="absolute top-0 right-4 w-2 h-4 bg-[var(--accent)] shadow-md rounded-b-sm z-10 opacity-90 group-hover:h-6 transition-all duration-300"></div>
+
+                                <span class="font-serif-display text-base font-bold bg-clip-text text-transparent bg-gradient-to-br from-[#d2e0f5] to-[#7a9bbd] relative z-20">Dune</span>
+                                <span
+                                    class="text-[10px] text-[#d2e0f5]/60 font-sans-editorial font-semibold relative z-20 tracking-wider uppercase">Herbert</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="eyebrow block text-[9px] opacity-70">Bookmarks</span>
+                                    <span class="text-xs font-serif-display font-bold mt-0.5 text-[var(--accent)]">12%</span>
+                                </div>
+                                <span class="text-[10px] font-sans-editorial opacity-60">p. 72</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ================= SCREEN: THE LIVING SHELF ================= -->
+            <section id="screen-shelf"
+                class="absolute inset-0 flex flex-col p-6 overflow-y-auto cozy-scroll pb-24 z-0 opacity-0 pointer-events-none transition-all duration-700 ambient-transition"
+                style="background-color: var(--page); color: var(--ink);">
+
+                <div class="flex justify-between items-start mt-2 relative z-30">
+                    <div>
+                        <span class="eyebrow block">Personal Archive</span>
+                        <h2 class="text-4xl font-serif-display font-bold mt-1 text-[var(--ink)]">Your Living Shelf</h2>
+                    </div>
+                    
+                    <!-- Shelf Actions Menu -->
+                    <div class="relative">
+                        <button onclick="toggleShelfMenu()"
+                            class="w-8 h-8 rounded-full bg-[var(--accent)] text-[var(--page)] flex items-center justify-center shadow-lg hover:opacity-90 transition-all z-20 relative"
+                            title="Shelf Actions">
+                            <i class="fa-solid fa-ellipsis-vertical text-sm"></i>
+                        </button>
+                        <div id="shelfMenu" 
+                            class="absolute top-full right-0 mt-2 flex flex-col min-w-[140px] p-2 rounded-xl bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow opacity-0 pointer-events-none transition-all duration-300 translate-y-[-10px] font-sans-editorial text-xs">
+                            <button onclick="switchTab('scanner'); toggleShelfMenu()"
+                                class="w-full flex items-center justify-start gap-3 px-3 py-2 rounded-lg transition-all hover:bg-[var(--rule-soft)] text-[var(--ink)]">
+                                <i class="fa-solid fa-camera opacity-70"></i>
+                                <span>Add Book</span>
+                            </button>
+                            <div class="w-full h-px bg-[var(--rule-soft)] my-1"></div>
+                            <button id="dropdownEditBtn" onclick="toggleEditMode(); toggleShelfMenu()"
+                                class="w-full flex items-center justify-start gap-3 px-3 py-2 rounded-lg transition-all hover:bg-[var(--rule-soft)] text-[var(--ink)]">
+                                <i class="fa-solid fa-pen-to-square opacity-70"></i>
+                                <span id="dropdownEditLabel">Edit Shelf</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dingbat-row my-8">❦</div>
+
+                <!-- Ledger Index Tabs -->
+                <div id="shelfFilters" class="flex gap-4 overflow-x-auto no-scrollbar pb-4 text-xs font-sans-editorial border-b border-[var(--rule-soft)] mb-6">
+                    <button onclick="filterShelf(this, 'all')" class="shelf-filter relative font-bold text-[var(--ink)] pb-2 underline underline-offset-[10px] decoration-[var(--accent)] decoration-2 whitespace-nowrap">
+                        All volumes (5)
+                    </button>
+                    <button onclick="filterShelf(this, 'reading')" class="shelf-filter relative font-medium text-[var(--muted)] hover:text-[var(--ink)] transition-colors pb-2 whitespace-nowrap">
+                        Currently Reading (2)
+                    </button>
+                    <button onclick="filterShelf(this, 'unread')" class="shelf-filter relative font-medium text-[var(--muted)] hover:text-[var(--ink)] transition-colors pb-2 whitespace-nowrap">
+                        Unread logs (1)
+                    </button>
+                    <button onclick="filterShelf(this, 'paused')" class="shelf-filter relative font-medium text-[var(--muted)] hover:text-[var(--ink)] transition-colors pb-2 whitespace-nowrap">
+                        Paused (1)
+                    </button>
+                    <button onclick="filterShelf(this, 'completed')" class="shelf-filter relative font-medium text-[var(--muted)] hover:text-[var(--ink)] transition-colors pb-2 whitespace-nowrap">
+                        Completed (1)
+                    </button>
+                </div>
+
+                <!-- Physical Multi-Tier Bookcase -->
+                <div id="bookcase" class="flex flex-col gap-12 w-full pb-12 mt-8 px-4 relative">
+                    
+                    <!-- Shelf 1 -->
+                    <div class="shelf-tier relative group">
+                        <!-- Shelf Drag Handle -->
+                        <div class="absolute -left-4 top-[80%] -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity cursor-grab text-[var(--muted)] hover:text-[var(--accent)] z-20 shelf-drag-handle" style="display: none;">
+                            <i class="fa-solid fa-grip-vertical"></i>
+                        </div>
+                        
+                        <div class="w-full overflow-x-auto no-scrollbar pb-4 -mb-4">
+                            <div class="shelf-row flex flex-row items-end gap-1.5 min-w-full w-max px-2 min-h-[260px] border-b-8 border-[#2e2219] relative shadow-[0_20px_20px_-10px_rgba(0,0,0,0.3)]">
+                                <!-- Shelf shadow cast on back wall -->
+                            <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#2a1d13]/10 to-transparent pointer-events-none"></div>
+
+                            <!-- Book Spine: Stoner (Active) -->
+                            <div onclick="showBookDetail('Stoner')" data-category="reading"
+                                class="shelf-book w-14 h-60 rounded-t rounded-b-sm bg-[#2e2219] shadow-[3px_0_15px_rgba(0,0,0,0.6)] cursor-pointer relative group/book flex-shrink-0 flex items-center justify-center transform transition-transform hover:-translate-y-2 hover:z-10 z-0">
+                                <div class="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+                                <div class="absolute left-0 top-0 w-[1px] h-full bg-white/10"></div>
+                                <div class="absolute right-0 top-0 w-2 h-full bg-black/40"></div>
+                                <div class="absolute left-1.5 top-0 w-[2px] h-full bg-white/5"></div>
+                                
+                                <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-2 h-6 bg-[var(--accent)] shadow-md shadow-black/50 opacity-90 z-20 group-hover/book:h-8 transition-all duration-300" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);"></div>
+
+                                <div class="transform -rotate-90 whitespace-nowrap flex items-center gap-4 w-[220px] justify-between z-10">
+                                    <span class="font-serif-display text-[13px] font-bold text-[#f5ecd2] tracking-widest uppercase">Stoner</span>
+                                    <span class="font-sans-editorial text-[9px] text-[#f5ecd2]/60 tracking-widest uppercase">Williams</span>
+                                </div>
+                            </div>
+
+                            <!-- Book Spine: Dune (Active) -->
+                            <div onclick="showBookDetail('Dune')" data-category="reading"
+                                class="shelf-book w-20 h-64 rounded-t rounded-b-sm bg-[#1a233a] shadow-[3px_0_15px_rgba(0,0,0,0.6)] cursor-pointer relative group/book flex-shrink-0 flex items-center justify-center transform transition-transform hover:-translate-y-2 hover:z-10 z-0">
+                                <div class="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+                                <div class="absolute left-0 top-0 w-[1px] h-full bg-white/10"></div>
+                                <div class="absolute right-0 top-0 w-2 h-full bg-black/40"></div>
+                                
+                                <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-3 h-8 bg-[#cc6b3a] shadow-md shadow-black/50 opacity-90 z-20 group-hover/book:h-10 transition-all duration-300" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);"></div>
+
+                                <div class="transform -rotate-90 whitespace-nowrap flex items-center gap-4 w-[230px] justify-between z-10">
+                                    <span class="font-serif-display text-[16px] font-bold text-[#d2e0f5] tracking-[0.2em] uppercase">Dune</span>
+                                    <span class="font-sans-editorial text-[9px] text-[#d2e0f5]/60 tracking-widest uppercase">Herbert</span>
+                                </div>
+                            </div>
+
+                            <!-- Book Spine: Normal People (Paused) -->
+                            <div onclick="showBookDetail('Normal People')" data-category="paused"
+                                class="shelf-book w-14 h-56 rounded-t rounded-b-sm bg-[#223528] shadow-[3px_0_15px_rgba(0,0,0,0.6)] cursor-pointer relative group/book flex-shrink-0 flex items-center justify-center transform transition-transform hover:-translate-y-2 hover:z-10 z-0">
+                                <div class="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+                                <div class="absolute left-0 top-0 w-[1px] h-full bg-white/10"></div>
+                                <div class="absolute right-0 top-0 w-2 h-full bg-black/40"></div>
+
+                                <div class="transform -rotate-90 whitespace-nowrap flex items-center gap-3 w-[200px] justify-between z-10">
+                                    <span class="font-serif-display text-[12px] font-bold text-[#d2f5e0] tracking-widest uppercase">Normal People</span>
+                                    <span class="font-sans-editorial text-[8px] text-[#d2f5e0]/60 tracking-widest uppercase">Rooney</span>
+                                </div>
+                            </div>
+
+                            <!-- Book Spine: The Bell Jar (Unread) -->
+                            <div onclick="showBookDetail('The Bell Jar')" data-category="unread"
+                                class="shelf-book w-12 h-56 rounded-t rounded-b-sm bg-[#3d1c25] shadow-[3px_0_15px_rgba(0,0,0,0.6)] cursor-pointer relative group/book flex-shrink-0 flex items-center justify-center transform transition-transform hover:-translate-y-2 hover:z-10 z-0">
+                                <div class="absolute inset-0 opacity-25 mix-blend-overlay pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+                                <div class="absolute left-0 top-0 w-[1px] h-full bg-white/10"></div>
+                                <div class="absolute right-0 top-0 w-2 h-full bg-black/40"></div>
+
+                                <div class="transform -rotate-90 whitespace-nowrap flex items-center gap-3 w-[200px] justify-between z-10">
+                                    <span class="font-serif-display text-[13px] font-bold text-[#f5d2da] tracking-widest uppercase">The Bell Jar</span>
+                                    <span class="font-sans-editorial text-[8px] text-[#f5d2da]/60 tracking-widest uppercase">Plath</span>
+                                </div>
+                            </div>
+
+                            <!-- Book Spine: Meditations (Completed) -->
+                            <div onclick="showBookDetail('Meditations')" data-category="completed"
+                                class="shelf-book w-12 h-52 rounded-t rounded-b-sm bg-[#2b2a26] shadow-[3px_0_15px_rgba(0,0,0,0.6)] cursor-pointer relative group/book flex-shrink-0 flex items-center justify-center transform transition-transform hover:-translate-y-2 hover:z-10 z-0">
+                                <div class="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+                                <div class="absolute left-0 top-6 w-full h-[1px] bg-black/20"></div>
+                                <div class="absolute left-0 top-8 w-full h-[1px] bg-white/5"></div>
+                                <div class="absolute left-0 top-0 w-[1px] h-full bg-white/10"></div>
+                                <div class="absolute right-0 top-0 w-2 h-full bg-black/40"></div>
+
+                                <div class="transform -rotate-90 whitespace-nowrap flex items-center gap-3 w-[180px] justify-between z-10 opacity-70">
+                                    <span class="font-serif-display text-[12px] font-bold text-[#d1c8b8] tracking-widest uppercase">Meditations</span>
+                                    <span class="font-sans-editorial text-[8px] text-[#d1c8b8]/60 tracking-widest uppercase">Aurelius</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Shelf Button (hidden by default) -->
+                    <div id="addShelfContainer" class="hidden flex-col items-center gap-8 py-8 mt-4 border-t border-[var(--rule-soft)]">
+                        <button onclick="addNewShelf()" class="text-xs font-sans-editorial text-[var(--muted)] hover:text-[var(--ink)] transition-colors flex items-center gap-2 opacity-50 hover:opacity-100">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Add New Shelf</span>
+                        </button>
+
+                        <button onclick="toggleEditMode()" class="px-8 py-3 bg-[var(--accent)] text-[var(--page)] rounded-full text-sm font-bold shadow-lg hover:opacity-90 transition-all font-sans-editorial tracking-widest uppercase">
+                            Done Editing
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ================= SCREEN: AR SPINE SCANNER ================= -->
+            <section id="screen-scanner"
+                class="absolute inset-0 flex flex-col z-0 opacity-0 pointer-events-none transition-all duration-700 ambient-transition"
+                style="background-color: var(--page); color: var(--ink);">
+
+                <div class="absolute top-0 inset-x-0 px-6 pt-6 pb-4 z-30 pointer-events-auto border-b transition-colors duration-700 ambient-transition shadow-sm" style="background-color: var(--page); color: var(--ink); border-color: var(--rule-soft);">
+                    <div class="flex justify-between items-start mt-2 relative z-30">
+                        <div>
+                            <span class="eyebrow block">Computer Vision</span>
+                            <h2 class="text-4xl font-serif-display font-bold mt-1 text-[var(--ink)]">Spine Sync</h2>
+                        </div>
+                        <div class="relative">
+                            <button onclick="this.querySelector('i').classList.toggle('text-yellow-400')"
+                                class="w-8 h-8 rounded-full bg-[var(--accent)] text-[var(--page)] flex items-center justify-center shadow-lg hover:opacity-90 transition-all z-20 relative"
+                                title="Toggle Flash">
+                                <i class="fa-solid fa-bolt text-sm transition-colors"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="dingbat-row mt-8 mb-2">❦</div>
+                </div>
+
+                <!-- Camera viewport mock rendering overlay frames -->
+                <div class="absolute inset-0 bg-stone-950 flex items-center justify-center overflow-hidden relative">
+
+                    <!-- Noise layer -->
+                    <div class="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+                    <!-- Subtle Vignette -->
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.8)_100%)] pointer-events-none"></div>
+
+                    <!-- Modern Focal Brackets -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10 opacity-70 animate-pulse mt-12">
+                        <div class="w-64 h-64 border-2 border-white/20 rounded-[28px] relative">
+                            <!-- Corner highlights -->
+                            <div class="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-white rounded-tl-[28px]"></div>
+                            <div class="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-white rounded-tr-[28px]"></div>
+                            <div class="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-white rounded-bl-[28px]"></div>
+                            <div class="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-white rounded-br-[28px]"></div>
+                        </div>
+                    </div>
+
+                    <!-- Virtual spines representing aligned library books -->
+                    <div class="flex gap-4 transform rotate-1 scale-105 pointer-events-none z-0 mt-20">
+                        <div
+                            class="w-12 h-96 bg-[#2e2219] border-r border-white/10 rounded-sm shadow-2xl relative flex items-center justify-center opacity-60">
+                            <span
+                                class="text-xs uppercase font-serif-display font-bold tracking-widest text-[#f5ecd2] -rotate-90 whitespace-nowrap">STONER</span>
+                        </div>
+                        
+                        <!-- Glowing bounds represents dynamic registration overlays -->
+                        <div
+                            class="w-14 h-96 bg-[#1a233a] border-2 rounded-sm relative flex items-center justify-center transition-colors duration-700 ambient-transition" style="border-color: var(--accent); box-shadow: 0 0 30px var(--accent);">
+                            <span
+                                class="text-xs uppercase font-serif-display font-bold tracking-widest text-[#d2e0f5] -rotate-90 whitespace-nowrap">DUNE</span>
+                            
+                            <!-- Elegant Tooltip -->
+                            <div class="absolute -top-14 flex flex-col items-center">
+                                <div class="px-3 py-1.5 rounded-lg text-[10px] font-sans-editorial font-bold shadow-lg flex items-center gap-1.5 transition-colors duration-700 ambient-transition" style="background-color: var(--page); color: var(--ink);">
+                                    <i class="fa-solid fa-check" style="color: var(--accent);"></i> Found
+                                </div>
+                                <div class="w-px h-6 mt-1 transition-colors duration-700 ambient-transition" style="background-color: var(--page);"></div>
+                                <div class="w-1.5 h-1.5 rounded-full transition-colors duration-700 ambient-transition" style="background-color: var(--page);"></div>
+                            </div>
+                        </div>
+                        
+                        <div
+                            class="w-12 h-96 bg-[#321e1a] border border-white/20 rounded-sm shadow-2xl relative flex items-center justify-center opacity-60">
+                            <span
+                                class="text-xs uppercase font-serif-display font-bold tracking-widest text-amber-200 -rotate-90 whitespace-nowrap">THE
+                                SHINING</span>
+                        </div>
+                    </div>
+
+                    <!-- Target simulator prompt inside scanning environment -->
+                    <div
+                        class="absolute bottom-12 inset-x-6 p-5 rounded-3xl border text-center shadow-[0_20px_40px_rgba(0,0,0,0.5)] z-20 pointer-events-auto transition-colors duration-700 ambient-transition" style="background-color: var(--paper-deep); color: var(--ink); border-color: var(--rule);">
+                        <span class="eyebrow block mb-2 tracking-widest"><i class="fa-solid fa-wand-magic-sparkles mr-1.5 transition-colors duration-700 ambient-transition" style="color: var(--accent);"></i>
+                            Detected on Shelf (1 Volume)</span>
+                        <p class="text-xs leading-relaxed mb-5 font-sans-editorial transition-colors duration-700 ambient-transition" style="color: var(--muted);">Point your lens at any shelf. Spines
+                            straighten and resolve organically.</p>
+
+                        <button onclick="executeSpineSync('The Shining', 'Stephen King', '#321e1a')"
+                            class="w-full py-3.5 rounded-full text-[11px] uppercase tracking-widest font-sans-editorial font-bold hover:opacity-90 transition-all shadow-lg flex justify-center items-center gap-2 ambient-transition" style="background-color: var(--accent); color: var(--page);">
+                            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                            Sync Volume
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ================= SCREEN: SEMANTIC THREADS INSIGHTS ================= -->
+            <section id="screen-insights"
+                class="absolute inset-0 flex flex-col p-6 overflow-y-auto cozy-scroll pb-24 z-0 opacity-0 pointer-events-none transition-all duration-700 ambient-transition"
+                style="background-color: var(--page); color: var(--ink);">
+
+                <div class="flex justify-between items-start mt-2 relative z-30 shrink-0">
+                    <div>
+                        <span class="eyebrow block">Sanctuary Insights</span>
+                        <h2 class="text-4xl font-serif-display font-bold mt-1 text-[var(--ink)]">Semantic Threads</h2>
+                    </div>
+                    
+                    <div class="relative">
+                        <button class="w-8 h-8 rounded-full bg-[var(--paper-deep)] border border-[var(--rule)] flex items-center justify-center shadow-sm hover:border-[var(--accent)] transition-all z-20 relative" title="Export Insights">
+                            <i class="fa-solid fa-share-nodes text-[var(--ink)] opacity-80 text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dingbat-row my-8 shrink-0">❦</div>
+
+                <!-- Reading Persona module -->
+                <div class="rounded-2xl p-5 bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow mb-6 relative overflow-hidden shrink-0">
+                    <!-- Subtle decorative background stamp -->
+                    <i class="fa-solid fa-feather-pointed absolute -right-4 -top-4 text-8xl opacity-5" style="color: var(--ink);"></i>
+                    
+                    <span class="eyebrow text-[var(--accent)]"><i class="fa-solid fa-feather mr-1.5"></i> Reading Persona</span>
+                    <h3 class="font-serif-display text-2xl font-bold mt-2 mb-3 text-[var(--ink)]">The Deep Diver</h3>
+                    
+                    <div class="border-t border-b border-[var(--rule-soft)] py-4 my-2">
+                        <p class="text-xs leading-relaxed opacity-85 font-serif text-[var(--ink)]">
+                            <span class="drop-cap">Y</span>ou submerge deeply into singular, quiet prose worlds. Your pages-per-session velocity is
+                            steady, preferring long quiet reflections over quick comparative tracking runs.
+                        </p>
+                    </div>
+                    <div class="text-[10px] font-sans-editorial bracketed mt-2 inline-block">Sanctuary Vibe: Dusk Candlelight</div>
+                </div>
+
+                <!-- Interactive Constellation Canvas Area -->
+                <div class="mt-2 shrink-0 flex flex-col h-[350px]">
+                    <span class="eyebrow block shrink-0">Constellation of Thought</span>
+                    <p class="text-[11.5px] leading-relaxed opacity-75 shrink-0">Derived from your handwritten notes & margin entries. Pull nodes to reposition.</p>
+
+                    <div class="flex-1 w-full mt-2 rounded-2xl bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow relative overflow-hidden">
+                        <canvas id="threadsCanvas" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ================= SCREEN: COZY SETTINGS ================= -->
+            <section id="screen-settings"
+                class="absolute inset-0 flex flex-col p-6 overflow-y-auto cozy-scroll pb-24 z-0 opacity-0 pointer-events-none transition-all duration-700 ambient-transition"
+                style="background-color: var(--page); color: var(--ink);">
+
+                <div class="flex justify-between items-start mt-2 relative z-30 shrink-0">
+                    <div>
+                        <span class="eyebrow block">Personal Space</span>
+                        <h2 class="text-4xl font-serif-display font-bold text-[var(--ink)]">Sanctuary Settings</h2>
+                    </div>
+                    <div class="relative">
+                        <button class="w-8 h-8 rounded-full bg-[var(--paper-deep)] border border-[var(--rule)] flex items-center justify-center shadow-sm hover:border-[var(--accent)] transition-all z-20 relative" title="Settings">
+                            <i class="fa-solid fa-gear text-[var(--ink)] opacity-80 text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dingbat-row my-8 shrink-0">❦</div>
+
+                <div class="space-y-6 shrink-0">
+
+
+                    <!-- Reading Environment config switches -->
+                    <div class="rounded-2xl p-5 bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow space-y-4">
+                        <span class="eyebrow text-[var(--accent)]"><i class="fa-solid fa-sliders mr-1.5"></i> Reading Environment</span>
+
+                        <div class="flex justify-between items-center text-sm py-2">
+                            <div>
+                                <span class="font-serif-display font-bold text-[var(--ink)] block text-sm">Atmospheric Noise</span>
+                                <span class="text-[10px] font-sans-editorial text-[var(--muted)]">Subtle film grain & vignette</span>
+                            </div>
+                            <input type="checkbox" checked class="w-10 h-6 bg-[var(--rule)] rounded-full appearance-none checked:bg-[var(--accent)] relative before:content-[''] before:absolute before:h-5 before:w-5 before:bg-[var(--page)] before:rounded-full before:top-0.5 before:left-0.5 checked:before:translate-x-4 before:transition-transform cursor-pointer shadow-inner">
+                        </div>
+
+                        <div class="w-full h-px bg-[var(--rule-soft)]"></div>
+
+                        <div class="flex justify-between items-center text-sm py-2">
+                            <div>
+                                <span class="font-serif-display font-bold text-[var(--ink)] block text-sm">Quiet Hours Override</span>
+                                <span class="text-[10px] font-sans-editorial text-[var(--muted)]">Mutes calls entirely (9 PM - 7 AM)</span>
+                            </div>
+                            <input type="checkbox" checked class="w-10 h-6 bg-[var(--rule)] rounded-full appearance-none checked:bg-[var(--accent)] relative before:content-[''] before:absolute before:h-5 before:w-5 before:bg-[var(--page)] before:rounded-full before:top-0.5 before:left-0.5 checked:before:translate-x-4 before:transition-transform cursor-pointer shadow-inner">
+                        </div>
+
+                        <div class="w-full h-px bg-[var(--rule-soft)]"></div>
+
+                        <div class="flex justify-between items-center text-sm py-2">
+                            <div>
+                                <span class="font-serif-display font-bold text-[var(--ink)] block text-sm">Soft Pulses</span>
+                                <span class="text-[10px] font-sans-editorial text-[var(--muted)]">Tactile haptics on interaction</span>
+                            </div>
+                            <input type="checkbox" checked class="w-10 h-6 bg-[var(--rule)] rounded-full appearance-none checked:bg-[var(--accent)] relative before:content-[''] before:absolute before:h-5 before:w-5 before:bg-[var(--page)] before:rounded-full before:top-0.5 before:left-0.5 checked:before:translate-x-4 before:transition-transform cursor-pointer shadow-inner">
+                        </div>
+                    </div>
+
+                    <!-- Secure local-first architecture details -->
+                    <div class="rounded-2xl p-5 bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow space-y-3">
+                        <span class="eyebrow text-[var(--accent)]"><i class="fa-solid fa-lock mr-1.5"></i> Local & Private Journal</span>
+                        <p class="text-xs leading-relaxed opacity-75 font-serif text-[var(--ink)]">Your reading diaries are yours. Data remains securely on-device, backing up privately without servers.</p>
+
+                        <div class="flex justify-between items-center text-xs font-sans-editorial pt-3 mt-2 border-t border-[var(--rule-soft)]">
+                            <span class="opacity-75 text-[var(--ink)]">Offline Vault</span>
+                            <span class="font-mono text-[var(--accent)] opacity-80">/Librory/Local_Cache.db</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center text-sm py-2 border-t border-[var(--rule-soft)] mt-3 pt-3">
+                            <div>
+                                <span class="font-serif-display font-bold text-[var(--ink)] block text-sm">Secure Cloud Backup</span>
+                                <span class="text-[10px] font-sans-editorial text-[var(--muted)]">Syncs via Google Drive sandbox</span>
+                            </div>
+                            <input type="checkbox" checked class="w-10 h-6 bg-[var(--rule)] rounded-full appearance-none checked:bg-[var(--accent)] relative before:content-[''] before:absolute before:h-5 before:w-5 before:bg-[var(--page)] before:rounded-full before:top-0.5 before:left-0.5 checked:before:translate-x-4 before:transition-transform cursor-pointer shadow-inner">
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-sans-editorial">
+                            <span class="opacity-75 text-[var(--ink)]">Last Sync</span>
+                            <span class="font-mono text-[var(--accent)] opacity-80">Today, 14:30</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- ================= BOOK DETAIL SLIDEUP OVERLAY ================= -->
+        <div id="bookDetailOverlay"
+            class="absolute inset-x-0 bottom-0 top-[80px] z-40 transform translate-y-full transition-all duration-500 ease-in-out flex flex-col overflow-hidden ambient-transition shadow-[0_-10px_40px_rgba(0,0,0,0.15)] rounded-t-3xl"
+            style="background-color: var(--page); color: var(--ink); border-top: 1px solid var(--rule);">
+
+            <!-- Tactile Drag Pill -->
+            <div class="w-full flex justify-center pt-3 pb-1 relative">
+                <div class="w-12 h-1.5 bg-[var(--ink)] rounded-full opacity-20"></div>
+                <button onclick="closeBookDetail()"
+                    class="absolute right-5 top-3 w-8 h-8 rounded-full bg-[var(--rule)] text-[var(--ink)] flex items-center justify-center hover:opacity-85 transition-opacity z-50">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Scrollable workspace details -->
+            <div class="flex-1 overflow-y-auto cozy-scroll px-6 pb-28 space-y-8 pt-4">
+
+                <div class="flex gap-6 items-center">
+                    <!-- Physical representation of cover -->
+                    <div id="coverPreview"
+                        class="w-28 h-40 rounded shadow-[0_10px_20px_rgba(0,0,0,0.25)] relative overflow-hidden flex-shrink-0 bg-[#2e2219] border border-[var(--rule)] group">
+                        <!-- Linen Noise Texture -->
+                        <div class="absolute inset-0 opacity-10 mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+                        <!-- Spine Shadow -->
+                        <div class="absolute left-0 top-0 w-3 h-full bg-gradient-to-r from-black/60 to-transparent"></div>
+                        <!-- Bookmark Ribbon -->
+                        <div class="absolute top-0 right-5 w-2.5 h-16 bg-[var(--accent)] shadow-md rounded-b-sm z-10 opacity-90 transition-all duration-300"></div>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h2 id="detailTitle" class="text-2xl font-serif-display font-bold">Stoner</h2>
+                        <span id="detailAuthor" class="text-xs font-sans-editorial text-[var(--muted)] mt-1">John
+                            Williams</span>
+
+                        <div class="flex gap-1.5 mt-3 text-[10px] font-sans-editorial">
+                            <span class="bg-[var(--paper-deep)] px-2.5 py-1 rounded border border-[var(--rule-soft)]"><i
+                                    class="fa-solid fa-gift mr-1 text-[var(--accent)]"></i> Gift from Alice</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top-Down Fore-Edge Visual -->
+                <div class="rounded-2xl p-6 bg-[var(--paper-deep)] border border-[var(--rule)] shadow-inner space-y-4">
+                    <div class="flex justify-between items-end text-xs font-sans-editorial">
+                        <span class="opacity-75 uppercase tracking-widest text-[9px] mb-1">Volume Progress</span>
+                        <span id="progressValue" class="font-serif-display font-bold text-lg text-[var(--accent)] text-right">42% (p. 118 of 278)</span>
+                    </div>
+                    
+                    <!-- The Page Edge -->
+                    <div class="relative w-full h-8 mt-6 mb-2 rounded border border-[var(--rule-soft)]"
+                         style="background: repeating-linear-gradient(to right, #ece2d8, #ece2d8 1px, #e3d6c9 1px, #e3d6c9 3px); box-shadow: inset 0 2px 5px rgba(0,0,0,0.06), inset 0 -2px 4px rgba(255,255,255,0.4);">
+                        
+                        <!-- Left Read Pages compressed shadow -->
+                        <div id="progressFill" class="absolute top-0 bottom-0 left-0 bg-stone-800 mix-blend-multiply opacity-10 transition-all duration-700 rounded-l" style="width: 42%;"></div>
+                        
+                        <!-- Right Cover Edge Shadow -->
+                        <div class="absolute top-0 bottom-0 right-0 w-2 bg-gradient-to-l from-stone-400/40 to-transparent"></div>
+
+                        <!-- Silk Ribbon Bookmark -->
+                        <div id="progressSlider" class="absolute top-[-8px] w-4 h-16 shadow-[2px_4px_6px_rgba(0,0,0,0.3)] transform -translate-x-1/2 transition-all duration-700 z-10" 
+                             style="left: 42%; background: linear-gradient(to bottom, var(--accent), #963121); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 88%, 0 100%);">
+                            <!-- Silk sheen -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reading Session Launch button -->
+                <button onclick="startImmersiveReading()"
+                    class="w-full py-4 rounded-xl bg-[var(--accent)] text-[var(--page)] font-serif-display font-bold text-[15px] tracking-wide shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] border border-[var(--ink)] hover:opacity-95 active:scale-[0.99] transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-feather-pointed"></i> Settle in to read
+                </button>
+
+                <!-- Handwritten notes section -->
+                <div class="space-y-3">
+                    <div class="flex justify-between items-baseline">
+                        <span class="eyebrow">Marginalia notes</span>
+                        <button onclick="simulateOCR()" class="text-xs text-[var(--accent)] italic hover:underline"><i
+                                class="fa-solid fa-camera mr-1"></i> Quote Snap OCR</button>
+                    </div>
+
+                    <!-- Sandbox records display -->
+                    <div id="notesContainer" class="space-y-4">
+                        <!-- Custom script class implemented based on rules -->
+                    </div>
+
+                    <!-- Fresh note field -->
+                    <div class="rounded-2xl p-4 bg-[var(--paper-deep)] border border-[var(--rule)] shadow-inner space-y-3">
+                        <textarea id="newNoteArea" placeholder="Scribble inside the margins..."
+                            class="w-full h-[128px] bg-transparent focus:outline-none resize-none text-[var(--ink)] font-[Reenie_Beanie] text-2xl tracking-wide"
+                            style="background: repeating-linear-gradient(transparent, transparent 31px, var(--rule-soft) 31px, var(--rule-soft) 32px); line-height: 32px; background-attachment: local;"></textarea>
+                        <div
+                            class="flex justify-between items-center pt-2 border-t border-[var(--rule-soft)] text-xs font-sans-editorial">
+                            <div class="flex items-center gap-1.5">
+                                <span class="opacity-75">Page:</span>
+                                <input type="number" id="notePageNum" value="118"
+                                    class="w-12 bg-transparent border-b border-[var(--rule)] text-center text-[var(--accent)] font-bold focus:outline-none">
+                            </div>
+                            <button onclick="saveMarginalNote()"
+                                class="px-4 py-1.5 rounded-lg bg-[var(--accent)] text-[var(--page)] font-semibold shadow">Write
+                                Note</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= IMMERSIVE READING SCREEN OVERLAY ================= -->
+        <div id="immersiveOverlay"
+            class="absolute inset-0 z-50 transform translate-y-full transition-all duration-700 flex flex-col justify-between p-8 text-center ambient-transition"
+            style="background-color: var(--page); color: var(--ink);">
+
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[var(--ember)] animate-pulse shadow-glow"></span>
+                    <span class="eyebrow text-xs tracking-wider">Immersed in Reading</span>
+                </div>
+                <button onclick="stopImmersiveReading()"
+                    class="px-3 py-1.5 rounded-lg bg-[var(--paper-deep)] border border-[var(--rule)] text-xs font-sans-editorial hover:opacity-80">
+                    Return
+                </button>
+            </div>
+
+            <!-- Focus visual -->
+            <div class="my-auto space-y-8">
+                <p class="text-xs leading-relaxed opacity-75 max-w-[200px] mx-auto font-serif italic mt-4">Rest your eyes.<br>Turn physical sheets.<br>Breathe.</p>
+
+                <!-- Ambient glowing ember visual -->
+                <div class="relative w-full flex items-center justify-center py-4 cursor-pointer hover:scale-105 active:scale-95 duration-300" onclick="igniteEmber()">
+                    <div class="absolute w-[220px] h-[220px] rounded-full bg-gradient-to-r from-[rgba(255,165,0,0.1)] to-transparent pointer-events-none"></div>
+                    <div class="w-[140px] h-[140px] rounded-full transition-all duration-500 animate-orb-pulse flex flex-col items-center justify-center gap-0.5" style="
+                        background: radial-gradient(circle, #FFFFFF 0%, #FFEFA6 20%, #FFA500 50%, var(--ember) 75%, transparent 88%);
+                        filter: drop-shadow(0 0 55px rgba(255, 175, 40, 0.95));
+                    ">
+                        <span id="immersiveTitle" class="font-serif-display text-xl font-bold text-[#4a2311] tracking-wide text-center leading-tight px-3 z-10" style="text-shadow: 0 1px 3px rgba(255,255,255,0.9);">Stoner</span>
+                        <span id="immersiveTimer" class="font-mono text-[10px] text-[#4a2311] opacity-75 tracking-widest z-10" style="text-shadow: 0 1px 2px rgba(255,255,255,0.7);">00:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session finish widgets -->
+            <div class="space-y-4">
+
+                <div class="bg-[var(--paper-deep)] p-6 rounded-2xl border border-[var(--rule)] space-y-5 shadow-inner relative overflow-hidden">
+                    <!-- Subtle background ribbon indicating this is a bookmark -->
+                    <div class="absolute top-0 right-6 w-8 h-full bg-[var(--accent)] opacity-5"></div>
+                    
+                    <span class="text-xs font-serif italic block text-left">Where did you leave the bookmark?</span>
+                    
+                    <div class="flex items-center gap-3 border-b border-[var(--rule)] pb-2 relative">
+                        <span class="font-serif-display text-lg opacity-50">p.</span>
+                        <input type="number" id="sessionPageInput" value="118"
+                            class="bg-transparent text-4xl text-[var(--ink)] font-[Reenie_Beanie] w-24 focus:outline-none placeholder-stone-300">
+                        <span class="text-[9px] font-sans-editorial opacity-40 absolute right-0 bottom-3">WRITE PAGE #</span>
+                    </div>
+
+                    <button onclick="sealRitual()"
+                        class="w-full py-3.5 rounded bg-[var(--accent)] text-[var(--page)] text-xs font-sans-editorial font-bold shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] hover:opacity-90 active:scale-[0.99] transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bookmark opacity-80"></i> Seal Bookmark
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= OCR SNAP SCANNER LENS OVERLAY ================= -->
+        <div id="ocrOverlay"
+            class="absolute inset-0 z-50 transform translate-y-full transition-all duration-500 flex flex-col justify-between p-6 bg-[#1a1512]/80 backdrop-blur-md text-[var(--page)] shadow-[inset_0_0_100px_rgba(0,0,0,0.5)]">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <span class="eyebrow text-amber-500/80">Capture Marginalia</span>
+                <button onclick="hideOCR()" class="w-8 h-8 rounded-full bg-black/20 border border-white/10 flex items-center justify-center hover:bg-black/40 transition-colors"><i
+                        class="fa-solid fa-xmark opacity-70"></i></button>
+            </div>
+
+            <!-- Simulated Viewfinder/Lens Container -->
+            <div class="my-auto relative px-2">
+                
+                <!-- Mock physical sheet scrap -->
+                <div class="rounded-xl p-6 bg-[var(--paper-deep)] text-[var(--ink)] shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden transform -rotate-1">
+                    <!-- Linen Noise Texture -->
+                    <div class="absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+                    
+                    <div class="absolute top-3 right-5 text-[9px] font-serif opacity-40 italic">118</div>
+                    
+                    <p class="text-[11px] leading-relaxed opacity-65 mb-4 font-serif">
+                        He had come to recognize that the small, hard bundle of knowledge was a part of him, and that it
+                        would grow as he grew...
+                    </p>
+
+                    <!-- Interactive target highlight zone -->
+                    <div class="relative my-6 px-1">
+                        <!-- Pulsing Viewfinder Brackets -->
+                        <div class="absolute -top-3 -left-2 w-4 h-4 border-t-2 border-l-2 border-[var(--accent)] opacity-60 animate-pulse"></div>
+                        <div class="absolute -top-3 -right-2 w-4 h-4 border-t-2 border-r-2 border-[var(--accent)] opacity-60 animate-pulse"></div>
+                        <div class="absolute -bottom-3 -left-2 w-4 h-4 border-b-2 border-l-2 border-[var(--accent)] opacity-60 animate-pulse"></div>
+                        <div class="absolute -bottom-3 -right-2 w-4 h-4 border-b-2 border-r-2 border-[var(--accent)] opacity-60 animate-pulse"></div>
+
+                        <!-- Wet Highlighter Effect -->
+                        <div class="absolute inset-y-[-4px] inset-x-[-2px] bg-yellow-300 mix-blend-multiply opacity-50 rounded-sm transform -skew-x-3 pointer-events-none"></div>
+                        
+                        <p class="text-sm font-serif font-medium leading-relaxed italic text-[var(--ink)] relative z-10">
+                            "In his extreme youth Stoner had thought of love as an absolute state of being to which, if one
+                            were lucky, one might find access."
+                        </p>
+                    </div>
+
+                    <p class="text-[11px] leading-relaxed opacity-65 mt-4 font-serif">
+                        He knew now that love was a human thing, a process of learning and unlearning, filled with warm dust
+                        and paper.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Capture Shutter Action Area -->
+            <div class="flex flex-col items-center gap-6 pb-4">
+                <p class="text-[10px] leading-relaxed opacity-60 text-center font-sans-editorial tracking-widest max-w-[240px]">
+                    ALIGN THE PASSAGE WITHIN THE FOCUS BRACKETS.<br>THE INK WILL BE DIGITIZED INSTANTLY.
+                </p>
+                
+                <button onclick="selectOCRQuote()" 
+                    class="w-16 h-16 rounded-full bg-transparent border-2 border-white/40 flex items-center justify-center hover:scale-95 active:scale-90 transition-transform duration-200 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+                    <div class="w-12 h-12 rounded-full bg-white/90 shadow-inner flex items-center justify-center text-[#2a221b]">
+                        <i class="fa-solid fa-camera text-xl opacity-80"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= COMPLETION CEREMONY OVERLAY ================= -->
+        <div id="ceremonyOverlay" class="absolute inset-0 z-[100] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-1000 ambient-transition" style="background-color: var(--page); color: var(--ink);">
+            <div class="absolute inset-0" style="background: radial-gradient(circle, var(--paper-deep) 0%, transparent 80%);"></div>
+            
+            <i class="fa-solid fa-sun text-6xl text-[var(--accent)] animate-pulse mb-8" style="filter: drop-shadow(0 0 25px rgba(255, 175, 40, 0.5));"></i>
+            <h2 class="text-4xl font-serif-display font-bold relative z-10">Volume Sealed</h2>
+            <p id="ceremonyBookTitle" class="mt-3 text-xl font-serif italic text-[var(--muted)] relative z-10">Stoner</p>
+            
+            <div class="dingbat-row my-6 w-32 relative z-10">❦</div>
+            
+            <p class="mt-2 text-[10px] font-sans-editorial tracking-[0.2em] uppercase opacity-70 relative z-10">Added to Completed Archive</p>
+            
+            <button onclick="closeCeremony()" class="mt-16 px-8 py-3 rounded-full border border-[var(--rule)] bg-[var(--paper-deep)] font-sans-editorial font-bold text-xs uppercase tracking-widest hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--page)] transition-all shadow-sm relative z-10">
+                Return to Library
+            </button>
+        </div>
+
+        <!-- ================= CUSTOM TAB NAVIGATION BAR ================= -->
+        <nav
+            class="absolute bottom-0 inset-x-0 h-20 bg-[var(--paper-deep)] border-t border-[var(--rule)] flex items-center justify-around px-2 z-30 select-none">
+            <button onclick="switchTab('hearth')" id="nav-hearth"
+                class="flex flex-col items-center justify-center gap-1 flex-1 h-full font-sans-editorial text-[9px] font-semibold text-[var(--accent)]">
+                <i class="fa-solid fa-fire-flame-curved text-base"></i>
+                <span class="tracking-wider mt-0.5">Hearth</span>
+            </button>
+            <button onclick="switchTab('shelf')" id="nav-shelf"
+                class="flex flex-col items-center justify-center gap-1 flex-1 h-full font-sans-editorial text-[9px] font-semibold text-[var(--muted)] opacity-75 hover:opacity-100">
+                <i class="fa-solid fa-book-bookmark text-base"></i>
+                <span class="tracking-wider mt-0.5">Shelf</span>
+            </button>
+            <button onclick="switchTab('scanner')" id="nav-scanner"
+                class="flex flex-col items-center justify-center gap-1 flex-1 h-full font-sans-editorial text-[9px] font-semibold text-[var(--muted)] opacity-75 hover:opacity-100">
+                <i class="fa-solid fa-qrcode text-base"></i>
+                <span class="tracking-wider mt-0.5">Sync Spines</span>
+            </button>
+            <button onclick="switchTab('insights')" id="nav-insights"
+                class="flex flex-col items-center justify-center gap-1 flex-1 h-full font-sans-editorial text-[9px] font-semibold text-[var(--muted)] opacity-75 hover:opacity-100">
+                <i class="fa-solid fa-circle-nodes text-base"></i>
+                <span class="tracking-wider mt-0.5">Threads</span>
+            </button>
+            <button onclick="switchTab('settings')" id="nav-settings"
+                class="flex flex-col items-center justify-center gap-1 flex-1 h-full font-sans-editorial text-[9px] font-semibold text-[var(--muted)] opacity-75 hover:opacity-100">
+                <i class="fa-solid fa-sliders text-base"></i>
+                <span class="tracking-wider mt-0.5">Settings</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <!-- ================= CUSTOM PROTOTYPE SCRIPT CORE ================= -->
+    <script>
+        // System state containing local records parameters
+        const state = {
+            activeTheme: 'paper',
+            activeBook: 'Stoner',
+            books: {
+                'Stoner': {
+                    title: 'Stoner',
+                    author: 'John Williams',
+                    page: 118,
+                    totalPages: 278,
+                    progress: 42,
+                    notes: [
+                        { page: 45, text: '"He had come to recognize that the small, hard bundle of knowledge was a part of him..."', date: '4 days ago' },
+                        { page: 112, text: 'William Stoner learns how to suffer in pure silence. Beautiful yet devastating prose.', date: 'Yesterday' }
+                    ]
+                },
+                'Dune': {
+                    title: 'Dune',
+                    author: 'Frank Herbert',
+                    page: 72,
+                    totalPages: 600,
+                    progress: 12,
+                    notes: [
+                        { page: 12, text: '"Fear is the mind-killer." A fundamental classic.', date: '12 days ago' }
+                    ]
+                },
+                'Normal People': {
+                    title: 'Normal People',
+                    author: 'Sally Rooney',
+                    page: 243,
+                    totalPages: 273,
+                    progress: 89,
+                    notes: []
+                },
+                'The Bell Jar': {
+                    title: 'The Bell Jar',
+                    author: 'Sylvia Plath',
+                    page: 0,
+                    totalPages: 244,
+                    progress: 0,
+                    notes: []
+                }
+            },
+            emberFuel: 60,
+            sessionSeconds: 0,
+            sessionTimerInterval: null
+        };
+
+
+        // Custom Theme Router
+        function changeTheme(themeName) {
+            const shell = document.getElementById('deviceShell');
+
+            // Purge active themes classes
+            shell.classList.remove('theme-paper', 'theme-morning', 'theme-dusk', 'theme-candle');
+            shell.classList.add(`theme-${themeName}`);
+            state.activeTheme = themeName;
+
+            // Highlight buttons
+            const buttons = ['paper', 'morning', 'dusk', 'candle'];
+            buttons.forEach(b => {
+                const btn = document.getElementById(`btn-${b}`);
+                if (b === themeName) {
+                    btn.style.opacity = '1';
+                    btn.style.backgroundColor = 'var(--accent)';
+                    btn.style.color = 'var(--page)';
+                } else {
+                    btn.style.opacity = '0.55';
+                    btn.style.backgroundColor = 'transparent';
+                    btn.style.color = 'var(--ink)';
+                }
+            });
+
+            triggerToast(`Ambient Mode: ${themeName.charAt(0).toUpperCase() + themeName.slice(1)}`);
+        }
+
+        // Custom Notification HUD Trigger
+        function triggerToast(message) {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toastMsg');
+            msg.innerText = message;
+            toast.style.opacity = '1';
+            toast.style.transform = 'translate(-50%, 0)';
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, -10px)';
+            }, 3000);
+        }
+
+        // Navigation Tab switcher controller
+        function switchTab(targetTab) {
+            const tabs = ['hearth', 'shelf', 'scanner', 'insights', 'settings'];
+
+            tabs.forEach(tab => {
+                const screen = document.getElementById(`screen-${tab}`);
+                const navBtn = document.getElementById(`nav-${tab}`);
+
+                if (tab === targetTab) {
+                    screen.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+                    screen.classList.add('opacity-100', 'z-10');
+                    navBtn.style.color = 'var(--accent)';
+                    navBtn.style.opacity = '1';
+                } else {
+                    screen.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+                    screen.classList.remove('opacity-100', 'z-10');
+                    navBtn.style.color = 'var(--muted)';
+                    navBtn.style.opacity = '0.75';
+                }
+            });
+
+            // Re-trigger spring layout initialization on insights viewports navigation
+            if (targetTab === 'insights') {
+                initSpringCanvas();
+            }
+        }
+
+        // Ember ignition click logic
+        function igniteEmber() {
+            state.emberFuel = Math.min(100, state.emberFuel + 15);
+            const emberText = document.getElementById('emberTip');
+
+            if (state.emberFuel > 85) {
+                emberText.innerText = "The Reading Fire is Brilliant! Spines glow high across your shelf.";
+            } else {
+                emberText.innerText = "The Reading Fire glows cozy and warm. Your sanctuary matches the flame.";
+            }
+
+            triggerToast("✨ Fire fanned! Ritual context refreshed.");
+        }
+
+        // Dimiss reentry panel
+        function dismissReentry() {
+            const card = document.getElementById('reentryCard');
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                card.style.display = 'none';
+            }, 500);
+        }
+
+        // Spine scanning computer vision synchronization mock
+        function executeSpineSync(title, author, color) {
+            if (state.books[title]) {
+                triggerToast(`"${title}" is already resolved on your shelf.`);
+                return;
+            }
+
+            state.books[title] = {
+                title: title,
+                author: author,
+                page: 0,
+                totalPages: 380,
+                progress: 0,
+                notes: []
+            };
+
+            // Inject synchronized cards to DOM
+            const shelfGrid = document.getElementById('shelfGrid');
+            const newCard = document.createElement('div');
+            newCard.onclick = () => showBookDetail(title);
+            newCard.className = "rounded-2xl p-4 bg-[var(--paper-deep)] border border-[var(--rule)] hover:border-[var(--accent)] shadow-glow transition-all cursor-pointer";
+            newCard.innerHTML = `
+                <div class="h-32 rounded-lg shadow-inner mb-3 flex flex-col justify-end p-3 relative overflow-hidden" style="background-color: ${color}">
+                    <div class="absolute left-0 top-0 w-2 h-full bg-black/35"></div>
+                    <span class="font-serif-display text-xs font-bold text-white">${title}</span>
+                </div>
+                <h4 class="font-serif-display text-sm font-semibold truncate text-[var(--ink)]">${title}</h4>
+                <span class="text-[10px] font-sans-editorial text-[var(--muted)]">${author}</span>
+                <div class="flex justify-between items-center mt-2 pt-1.5 border-t border-[var(--rule-soft)]">
+                    <span class="text-[9px] font-sans-editorial uppercase tracking-wider text-[var(--accent)] font-semibold bg-[var(--accent-soft)] px-2 py-0.5 rounded">Scanned</span>
+                    <span class="text-[10px] font-serif-display text-[var(--muted)]">Unread</span>
+                </div>
+            `;
+            shelfGrid.appendChild(newCard);
+
+            triggerToast(`📚 "${title}" resolved successfully via On-Device Fuzzy Reconstructor!`);
+            switchTab('shelf');
+        }
+
+        // Deep dive detailed overlay manager
+        function showBookDetail(bookName) {
+            state.activeBook = bookName;
+            const book = state.books[bookName];
+
+            document.getElementById('detailTitle').innerText = book.title;
+            document.getElementById('detailAuthor').innerText = book.author;
+            document.getElementById('progressValue').innerText = `${book.progress}% (p. ${book.page} of ${book.totalPages})`;
+            document.getElementById('progressFill').style.width = `${book.progress}%`;
+            document.getElementById('progressSlider').style.left = `${book.progress}%`;
+
+            // Adjust custom colors
+            const coverPreview = document.getElementById('coverPreview');
+            if (bookName === 'Stoner') coverPreview.style.backgroundColor = '#2e2219';
+            else if (bookName === 'Dune') coverPreview.style.backgroundColor = '#1a233a';
+            else if (bookName === 'Normal People') coverPreview.style.backgroundColor = '#223528';
+            else coverPreview.style.backgroundColor = '#3d1c25';
+
+            // Reset notes list
+            renderNotes(book);
+
+            // Trigger slide overlay active translation
+            document.getElementById('bookDetailOverlay').classList.remove('translate-y-full');
+        }
+
+        function closeBookDetail() {
+            document.getElementById('bookDetailOverlay').classList.add('translate-y-full');
+        }
+
+        function slideProgress(val) {
+            const book = state.books[state.activeBook];
+            book.progress = parseInt(val);
+            book.page = Math.floor((book.progress / 100) * book.totalPages);
+            document.getElementById('progressValue').innerText = `${book.progress}% (p. ${book.page} of ${book.totalPages})`;
+        }
+
+        function renderNotes(book) {
+            const container = document.getElementById('notesContainer');
+            container.innerHTML = '';
+
+            if (!book.notes || book.notes.length === 0) {
+                container.innerHTML = `
+                    <p class="text-xs text-center italic opacity-60 py-4 font-serif">The margins are silent. Start cozy reading to record reflections.</p>
+                `;
+                return;
+            }
+
+            book.notes.forEach(note => {
+                const noteDiv = document.createElement('div');
+                noteDiv.className = "rounded-2xl p-4 border border-[var(--rule)] relative bg-[var(--paper-deep)] shadow-sm";
+                noteDiv.innerHTML = `
+                    <div class="absolute top-2 right-4 text-[10px] font-sans-editorial bracketed">p. ${note.page}</div>
+                    <p class="marginalia text-[var(--accent)]">${note.text}</p>
+                    <span class="text-[9px] font-sans-editorial block mt-2 opacity-50 uppercase tracking-wider">${note.date}</span>
+                `;
+                container.appendChild(noteDiv);
+            });
+        }
+
+        function saveMarginalNote() {
+            const area = document.getElementById('newNoteArea');
+            const pageInput = document.getElementById('notePageNum');
+
+            if (!area.value.trim()) return;
+
+            const noteObj = {
+                page: parseInt(pageInput.value) || 1,
+                text: `"${area.value.trim()}"`,
+                date: 'Just now'
+            };
+
+            state.books[state.activeBook].notes.push(noteObj);
+            renderNotes(state.books[state.activeBook]);
+            area.value = '';
+
+            triggerToast("📝 Note written directly in margins.");
+        }
+
+        // Simulated Local Camera OCR functionality
+        function simulateOCR() {
+            document.getElementById('ocrOverlay').classList.remove('translate-y-full');
+        }
+
+        function hideOCR() {
+            document.getElementById('ocrOverlay').classList.add('translate-y-full');
+        }
+
+        function selectOCRQuote() {
+            const textarea = document.getElementById('newNoteArea');
+            textarea.value = "In his extreme youth Stoner had thought of love as an absolute state of being to which, if one were lucky, one might find access.";
+            hideOCR();
+            triggerToast("⚡ Digitized via Local Spine OCR Highlight!");
+        }
+
+        // Active Focus Session overlay
+        function startImmersiveReading() {
+            closeBookDetail();
+            dismissReentry();
+
+            const overlay = document.getElementById('immersiveOverlay');
+            document.getElementById('immersiveTitle').innerText = state.books[state.activeBook].title;
+            document.getElementById('sessionPageInput').value = state.books[state.activeBook].page;
+
+            state.sessionSeconds = 0;
+            document.getElementById('immersiveTimer').innerText = "00:00";
+
+            // Start timer intervals
+            state.sessionTimerInterval = setInterval(() => {
+                state.sessionSeconds++;
+                const mins = Math.floor(state.sessionSeconds / 60).toString().padStart(2, '0');
+                const secs = (state.sessionSeconds % 60).toString().padStart(2, '0');
+                document.getElementById('immersiveTimer').innerText = `${mins}:${secs}`;
+            }, 1000);
+
+            overlay.classList.remove('translate-y-full');
+        }
+
+        function stopImmersiveReading() {
+            clearInterval(state.sessionTimerInterval);
+            document.getElementById('immersiveOverlay').classList.add('translate-y-full');
+            triggerToast(`Session suspended. You rested for ${Math.floor(state.sessionSeconds / 60)} mins.`);
+        }
+
+        function adjustSessionPage(delta) {
+            // Deprecated - using handwritten input now
+        }
+
+        function sealRitual() {
+            clearInterval(state.sessionTimerInterval);
+            document.getElementById('immersiveOverlay').classList.add('translate-y-full');
+
+            // Capture handwritten page input
+            const inputPage = parseInt(document.getElementById('sessionPageInput').value);
+            const book = state.books[state.activeBook];
+            
+            let isCompleting = false;
+
+            if (!isNaN(inputPage)) {
+                book.page = Math.max(0, Math.min(book.totalPages, inputPage));
+                book.progress = Math.floor((book.page / book.totalPages) * 100);
+                
+                if (book.progress >= 100) {
+                    book.progress = 100;
+                    isCompleting = true;
+                }
+                
+                // Sync progress back to Volume Deep Dive visual
+                document.getElementById('progressValue').innerText = `${book.progress}% (p. ${book.page} of ${book.totalPages})`;
+                document.getElementById('progressFill').style.width = `${book.progress}%`;
+                document.getElementById('progressSlider').style.left = `${book.progress}%`;
+            }
+
+            // Increment Ember glow
+            state.emberFuel = Math.min(100, state.emberFuel + 25);
+            
+            if (isCompleting) {
+                // Trigger Ceremony
+                triggerCompletionCeremony(book.title);
+            } else {
+                triggerToast("🕯️ Bookmark placed and ritual sealed.");
+            }
+        }
+
+        function triggerCompletionCeremony(title) {
+            const overlay = document.getElementById('ceremonyOverlay');
+            document.getElementById('ceremonyBookTitle').innerText = title;
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+        }
+        
+        function closeCeremony() {
+            const overlay = document.getElementById('ceremonyOverlay');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            triggerToast("✨ Volume gracefully laid to rest on your shelf.");
+            switchTab('shelf');
+        }
+
+
+        let physicsNodes = [];
+        let physicsLinks = [];
+        let canvas = null;
+        let ctx = null;
+        let draggedNode = null;
+        let animationFrameId = null;
+
+        function initSpringCanvas() {
+            canvas = document.getElementById('threadsCanvas');
+            if (!canvas) return;
+
+            ctx = canvas.getContext('2d');
+            const parentRect = canvas.parentNode.getBoundingClientRect();
+
+            // Adjust canvas dimensions accurately supporting screens scaling
+            canvas.width = parentRect.width;
+            canvas.height = parentRect.height;
+
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+
+            // Define cohesive book and semantic keyword node configurations
+            physicsNodes = [
+                { id: 'Stoner', label: 'Stoner', isTheme: false, x: cx - 80, y: cy - 40, vx: 0, vy: 0, radius: 22 },
+                { id: 'Dune', label: 'Dune', isTheme: false, x: cx + 85, y: cy - 70, vx: 0, vy: 0, radius: 22 },
+                { id: 'People', label: 'Normal People', isTheme: false, x: cx - 50, y: cy + 60, vx: 0, vy: 0, radius: 24 },
+
+                // Unified semantic themes derived from local notes mapping
+                { id: 'Grief', label: 'Grief', isTheme: true, x: cx - 20, y: cy - 20, vx: 0, vy: 0, radius: 26 },
+                { id: 'Solitude', label: 'Solitude', isTheme: true, x: cx - 110, y: cy + 20, vx: 0, vy: 0, radius: 26 },
+                { id: 'Fate', label: 'Fate', isTheme: true, x: cx + 30, y: cy + 40, vx: 0, vy: 0, radius: 26 }
+            ];
+
+            physicsLinks = [
+                { source: 'Stoner', target: 'Grief', length: 65 },
+                { source: 'Stoner', target: 'Solitude', length: 60 },
+                { source: 'People', target: 'Solitude', length: 70 },
+                { source: 'People', target: 'Grief', length: 65 },
+                { source: 'Dune', target: 'Fate', length: 80 }
+            ];
+
+            // Attaching touch & pointer handles directly
+            canvas.onmousedown = (e) => onInteractionStart(e, parentRect);
+            canvas.ontouchstart = (e) => onInteractionStart(e.touches[0], parentRect);
+
+            window.onmousemove = (e) => onInteractionMove(e, parentRect);
+            window.ontouchmove = (e) => onInteractionMove(e.touches[0], parentRect);
+
+            window.onmouseup = () => onInteractionEnd();
+            window.ontouchend = () => onInteractionEnd();
+
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            runPhysicsTick();
+        }
+
+        function runPhysicsTick() {
+            const k = 0.035; // Mass coefficients
+            const damp = 0.86; // Friction values
+            const centerStrength = 0.003;
+
+            // Recalculate forces
+            physicsLinks.forEach(link => {
+                const s = physicsNodes.find(n => n.id === link.source);
+                const t = physicsNodes.find(n => n.id === link.target);
+                if (!s || !t) return;
+
+                const dx = t.x - s.x;
+                const dy = t.y - s.y;
+                const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                const force = (dist - link.length) * k;
+
+                const fx = (dx / dist) * force;
+                const fy = (dy / dist) * force;
+
+                if (s !== draggedNode) { s.vx += fx; s.vy += fy; }
+                if (t !== draggedNode) { t.vx -= fx; t.vy -= fy; }
+            });
+
+            // Repulsions between individual nodes to prevent crowding
+            for (let i = 0; i < physicsNodes.length; i++) {
+                for (let j = i + 1; j < physicsNodes.length; j++) {
+                    const s = physicsNodes[i];
+                    const t = physicsNodes[j];
+                    const dx = t.x - s.x;
+                    const dy = t.y - s.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+                    if (dist < 120) {
+                        const force = -120.0 / dist;
+                        const fx = (dx / dist) * force;
+                        const fy = (dy / dist) * force;
+
+                        if (s !== draggedNode) { s.vx += fx; s.vy += fy; }
+                        if (t !== draggedNode) { t.vx -= fx; t.vy -= fy; }
+                    }
+                }
+            }
+
+            // Update physical coordinates
+            physicsNodes.forEach(node => {
+                if (node === draggedNode) return;
+
+                // Gravitational drag pull towards visual core center
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+                node.vx += (cx - node.x) * centerStrength;
+                node.vy += (cy - node.y) * centerStrength;
+
+                node.vx *= damp;
+                node.vy *= damp;
+                node.x += node.vx;
+                node.y += node.vy;
+
+                // Screen boundaries collisions lock
+                node.x = Math.max(node.radius, Math.min(canvas.width - node.radius, node.x));
+                node.y = Math.max(node.radius, Math.min(canvas.height - node.radius, node.y));
+            });
+
+            // Frame renders
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw link threads vector paths
+            ctx.strokeStyle = state.activeTheme === 'candle' ? 'rgba(208, 138, 74, 0.15)' : 'rgba(139, 90, 43, 0.2)';
+            ctx.lineWidth = 1.25;
+            physicsLinks.forEach(link => {
+                const s = physicsNodes.find(n => n.id === link.source);
+                const t = physicsNodes.find(n => n.id === link.target);
+                if (!s || !t) return;
+
+                ctx.beginPath();
+                ctx.moveTo(s.x, s.y);
+                ctx.lineTo(t.x, t.y);
+                ctx.stroke();
+            });
+
+            // Render nodes
+            physicsNodes.forEach(node => {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+
+                if (node.isTheme) {
+                    ctx.fillStyle = state.activeTheme === 'candle' ? '#2e2217' : 'var(--accent-soft)';
+                    ctx.fill();
+                    ctx.strokeStyle = 'var(--accent)';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+
+                    ctx.fillStyle = 'var(--accent)';
+                    ctx.font = 'bold 9px "Libre Franklin", sans-serif';
+                } else {
+                    ctx.fillStyle = 'var(--page)';
+                    ctx.fill();
+                    ctx.strokeStyle = 'var(--rule)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    // Mini book inner visual representation spine line
+                    ctx.fillStyle = 'var(--rule)';
+                    ctx.fillRect(node.x - node.radius, node.y - node.radius, node.radius / 2.5, node.radius * 2);
+
+                    ctx.fillStyle = 'var(--ink)';
+                    ctx.font = '10px Georgia, serif';
+                }
+
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(node.label, node.x, node.y);
+            });
+
+            animationFrameId = requestAnimationFrame(runPhysicsTick);
+        }
+
+        function onInteractionStart(e, rect) {
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+
+            draggedNode = physicsNodes.find(node => {
+                const dx = node.x - mx;
+                const dy = node.y - my;
+                return Math.sqrt(dx * dx + dy * dy) < node.radius + 10;
+            });
+        }
+
+        function onInteractionMove(e, rect) {
+            if (!draggedNode) return;
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+
+            draggedNode.x = mx;
+            draggedNode.y = my;
+            draggedNode.vx = 0;
+            draggedNode.vy = 0;
+        }
+
+        function onInteractionEnd() {
+            draggedNode = null;
+        }
+
+
+        // Initialization scripts on window frame mount
+        window.onload = function () {
+            // Keep clock matching current physical hours format
+            const updateClock = () => {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                document.getElementById('statusClock').innerText = `${hours}:${minutes}`;
+            };
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // Set morning vs paper defaults based on hour windows
+            const activeHour = new Date().getHours();
+            if (activeHour >= 6 && activeHour < 12) changeTheme('morning');
+            else if (activeHour >= 12 && activeHour < 18) changeTheme('dusk');
+            else if (activeHour >= 18 || activeHour < 6) changeTheme('candle');
+            else changeTheme('paper');
+        };
+
+        // UI Elevating Interactions
+        function toggleAmbientMenu() {
+            const menu = document.getElementById('ambientMenu');
+            if (menu.classList.contains('opacity-0')) {
+                menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+            } else {
+                menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+            }
+        }
+
+        function dismissReentry() {
+            const card = document.getElementById('reentryCard');
+            if (card) {
+                card.style.overflow = 'hidden';
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.95)';
+                card.style.height = card.offsetHeight + 'px';
+                setTimeout(() => {
+                    card.style.height = '0px';
+                    card.style.marginBottom = '0px';
+                    card.style.padding = '0px';
+                    card.style.border = 'none';
+                }, 150);
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        function igniteEmber() {
+            const ember = document.getElementById('emberGraphic');
+            if (ember) {
+                ember.classList.remove('animate-orb-pulse');
+                ember.classList.add('animate-flare');
+                setTimeout(() => {
+                    ember.classList.remove('animate-flare');
+                    ember.classList.add('animate-orb-pulse');
+                }, 800);
+            }
+        }
+
+        // Shelf Filtering Logic
+        function filterShelf(btn, category) {
+            // Prevent changing filters while in Edit Mode
+            if (typeof isEditMode !== 'undefined' && isEditMode) return;
+
+            // Update active state of ledger tabs
+            const tabs = document.querySelectorAll('.shelf-filter');
+            tabs.forEach(tab => {
+                tab.classList.remove('font-bold', 'text-[var(--ink)]', 'underline', 'underline-offset-[10px]', 'decoration-[var(--accent)]', 'decoration-2');
+                tab.classList.add('font-medium', 'text-[var(--muted)]');
+            });
+            
+            // Add active class to clicked button
+            btn.classList.remove('font-medium', 'text-[var(--muted)]');
+            btn.classList.add('font-bold', 'text-[var(--ink)]', 'underline', 'underline-offset-[10px]', 'decoration-[var(--accent)]', 'decoration-2');
+
+            // Filter books
+            const books = document.querySelectorAll('.shelf-book');
+            books.forEach(book => {
+                if (category === 'all' || book.dataset.category === category) {
+                    book.style.display = 'flex';
+                } else {
+                    book.style.display = 'none';
+                }
+            });
+        }
+        // Shelf Actions Menu Logic
+        function toggleShelfMenu() {
+            const menu = document.getElementById('shelfMenu');
+            if (menu.classList.contains('opacity-0')) {
+                menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+                menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            } else {
+                menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-10px]');
+                menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            }
+        }
+
+        // Shelf Edit Mode & Drag and Drop Logic
+        let isEditMode = false;
+        let bookcaseSortable = null;
+        let shelfSortables = [];
+
+        function toggleEditMode() {
+            if (!isEditMode) {
+                // Force "All volumes" filter before entering edit mode
+                const allBtn = document.querySelector('.shelf-filter');
+                if (allBtn) {
+                    // Temporarily bypass the isEditMode check just in case, though it's still false here
+                    isEditMode = false; 
+                    filterShelf(allBtn, 'all');
+                }
+            }
+
+            isEditMode = !isEditMode;
+            const addShelfContainer = document.getElementById('addShelfContainer');
+            
+            if (isEditMode) {
+                addShelfContainer.classList.remove('hidden');
+                addShelfContainer.classList.add('flex');
+            } else {
+                addShelfContainer.classList.add('hidden');
+                addShelfContainer.classList.remove('flex');
+            }
+
+            // Toggle drag handles
+            document.querySelectorAll('.shelf-drag-handle').forEach(handle => {
+                if (isEditMode) {
+                    handle.style.display = 'block';
+                } else {
+                    handle.style.display = 'none';
+                }
+            });
+
+            // Toggle SortableJS instances
+            if (bookcaseSortable) bookcaseSortable.option("disabled", !isEditMode);
+            shelfSortables.forEach(s => s.option("disabled", !isEditMode));
+
+            updateShelfVisibility();
+        }
+
+        function updateShelfVisibility() {
+            const tiers = document.querySelectorAll('.shelf-tier');
+            tiers.forEach(tier => {
+                const row = tier.querySelector('.shelf-row');
+                const booksCount = row.querySelectorAll('.shelf-book').length;
+                if (!isEditMode && booksCount === 0) {
+                    tier.style.display = 'none';
+                } else {
+                    tier.style.display = 'block';
+                }
+            });
+        }
+
+        function initSortableOnRow(row) {
+            if (typeof Sortable === 'undefined') return;
+            const s = new Sortable(row, {
+                group: 'books',
+                animation: 250,
+                ghostClass: 'opacity-30',
+                disabled: !isEditMode,
+                onMove: function (evt) {
+                    const targetShelf = evt.to;
+                    const booksInTarget = targetShelf.querySelectorAll('.shelf-book').length;
+                    if (booksInTarget >= 15 && evt.from !== targetShelf) {
+                        return false;
+                    }
+                },
+                onEnd: function() {
+                    // Update visibility in case we left a shelf empty
+                    if (!isEditMode) updateShelfVisibility();
+                }
+            });
+            shelfSortables.push(s);
+        }
+
+        function addNewShelf() {
+            const container = document.getElementById('addShelfContainer');
+            const newTier = document.createElement('div');
+            newTier.className = 'shelf-tier relative group';
+            newTier.innerHTML = `
+                <div class="absolute -left-4 top-[80%] -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity cursor-grab text-[var(--muted)] hover:text-[var(--accent)] z-20 shelf-drag-handle" style="display: block;">
+                    <i class="fa-solid fa-grip-vertical"></i>
+                </div>
+                <div class="w-full overflow-x-auto no-scrollbar pb-4 -mb-4">
+                    <div class="shelf-row flex flex-row items-end gap-1.5 min-w-full w-max px-2 min-h-[260px] border-b-8 border-[#2e2219] relative shadow-[0_20px_20px_-10px_rgba(0,0,0,0.3)]">
+                        <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#2a1d13]/10 to-transparent pointer-events-none"></div>
+                    </div>
+                </div>
+            `;
+            container.parentNode.insertBefore(newTier, container);
+            initSortableOnRow(newTier.querySelector('.shelf-row'));
+        }
+
+        // Semantic Threads Canvas Simulation
+        function initThreadsCanvas() {
+            const canvas = document.getElementById('threadsCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            function getThemeColor(varName, fallback) {
+                const val = getComputedStyle(document.body).getPropertyValue(varName).trim();
+                return val ? val : fallback;
+            }
+
+            let width = 0, height = 0;
+            let draggedNode = null;
+            let mouse = { x: null, y: null, active: false };
+
+            const colors = { book: '#A87658', theme: '#6E8A7F', note: '#C9B07F' };
+            const nodes = [
+                { label: 'Grief & Mourning', type: 'theme', x: 0.28, y: 0.34, r: 24 },
+                { label: 'Radical Hope', type: 'theme', x: 0.64, y: 0.28, r: 22 },
+                { label: 'Productive Solitude', type: 'theme', x: 0.58, y: 0.68, r: 22 },
+                { label: 'The Bell Jar', type: 'book', x: 0.18, y: 0.53, r: 15 },
+                { label: 'Circe', type: 'book', x: 0.39, y: 0.18, r: 15 },
+                { label: 'Briefly Gorgeous', type: 'book', x: 0.42, y: 0.48, r: 15 },
+                { label: 'Piranesi', type: 'book', x: 0.77, y: 0.52, r: 15 },
+                { label: 'Quiet Atrium', type: 'note', x: 0.77, y: 0.22, r: 11 },
+                { label: 'Return to Dust', type: 'note', x: 0.28, y: 0.76, r: 11 },
+                { label: 'Warm Light', type: 'note', x: 0.47, y: 0.82, r: 11 }
+            ].map(n => ({ ...n, vx: 0, vy: 0, _init: false }));
+
+            const links = [
+                [0, 3], [0, 5], [0, 8], [1, 2], [1, 4], [1, 6], [1, 7],
+                [2, 5], [2, 6], [2, 9], [3, 5], [4, 7], [5, 8], [6, 7]
+            ];
+
+            function checkResize() {
+                const newWidth = canvas.parentElement.clientWidth;
+                const newHeight = canvas.parentElement.clientHeight;
+                const dpr = window.devicePixelRatio || 1;
+                
+                if (newWidth > 0 && newHeight > 0 && (width !== newWidth || height !== newHeight)) {
+                    width = newWidth;
+                    height = newHeight;
+                    canvas.width = width * dpr;
+                    canvas.height = height * dpr;
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                    
+                    nodes.forEach(n => {
+                        if (!n._init) {
+                            n.x *= width;
+                            n.y *= height;
+                            n._init = true;
+                        }
+                    });
+                }
+            }
+            window.addEventListener('resize', checkResize);
+
+            function draw() {
+                checkResize();
+                if (width === 0 || height === 0) {
+                    requestAnimationFrame(draw);
+                    return;
+                }
+                
+                ctx.clearRect(0, 0, width, height);
+
+                const linkColor = getThemeColor('--rule', 'rgba(128,103,82,0.15)');
+                const textColor = getThemeColor('--ink', '#221A12');
+
+                links.forEach(([a, b]) => {
+                    const na = nodes[a], nb = nodes[b];
+                    const dx = nb.x - na.x; const dy = nb.y - na.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                    const force = (dist - 120) * 0.0003;
+                    
+                    if (na !== draggedNode) { na.vx += dx * force; na.vy += dy * force; }
+                    if (nb !== draggedNode) { nb.vx -= dx * force; nb.vy -= dy * force; }
+
+                    ctx.beginPath(); ctx.moveTo(na.x, na.y); ctx.lineTo(nb.x, nb.y);
+                    ctx.strokeStyle = linkColor; ctx.lineWidth = 1.2; ctx.stroke();
+                });
+
+                nodes.forEach((n, i) => {
+                    if (n !== draggedNode) {
+                        n.vx += Math.sin(Date.now() / 1500 + i) * 0.01;
+                        n.vy += Math.cos(Date.now() / 1600 + i) * 0.01;
+                        n.vx += (width / 2 - n.x) * 0.00005;
+                        n.vy += (height / 2 - n.y) * 0.00005;
+
+                        if (mouse.x !== null && !mouse.active) {
+                            const dx = mouse.x - n.x, dy = mouse.y - n.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 150) { n.vx += dx * 0.00045; n.vy += dy * 0.00045; }
+                        }
+
+                        n.x += n.vx; n.y += n.vy;
+                        n.vx *= 0.94; n.vy *= 0.94;
+
+                        if (n.x < n.r) { n.x = n.r; n.vx *= -0.5; }
+                        if (n.x > width - n.r) { n.x = width - n.r; n.vx *= -0.5; }
+                        if (n.y < n.r) { n.y = n.r; n.vy *= -0.5; }
+                        if (n.y > height - n.r) { n.y = height - n.r; n.vy *= -0.5; }
+                    }
+
+                    ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 5, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255,255,255,0.05)'; ctx.fill();
+
+                    ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                    ctx.fillStyle = colors[n.type]; 
+                    ctx.globalAlpha = n.type === 'theme' ? 0.9 : 0.8; 
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+
+                    ctx.fillStyle = textColor;
+                    ctx.font = n.type === 'theme' ? '600 11px "Libre Franklin", sans-serif' : '500 10px "Libre Franklin", sans-serif';
+                    ctx.textAlign = 'center'; 
+                    ctx.fillText(n.label, n.x, n.y + 4);
+                });
+
+                requestAnimationFrame(draw);
+            }
+
+            const getCoords = e => {
+                const r = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: clientX - r.left, y: clientY - r.top };
+            };
+
+            const onMove = e => {
+                const coords = getCoords(e);
+                mouse.x = coords.x; mouse.y = coords.y;
+                if (mouse.active && draggedNode) {
+                    draggedNode.x = mouse.x; draggedNode.y = mouse.y;
+                }
+            };
+
+            const onStart = e => {
+                mouse.active = true; 
+                const coords = getCoords(e);
+                mouse.x = coords.x; mouse.y = coords.y;
+                for (let n of nodes) {
+                    if (Math.sqrt((mouse.x - n.x) ** 2 + (mouse.y - n.y) ** 2) < n.r + 10) {
+                        draggedNode = n; break;
+                    }
+                }
+            };
+
+            const onEnd = () => { mouse.active = false; draggedNode = null; mouse.x = null; mouse.y = null; };
+
+            canvas.addEventListener('mousemove', onMove); 
+            canvas.addEventListener('mousedown', onStart);
+            window.addEventListener('mouseup', onEnd);
+            canvas.addEventListener('touchmove', onMove, { passive: true }); 
+            canvas.addEventListener('touchstart', onStart, { passive: true });
+            window.addEventListener('touchend', onEnd);
+            canvas.addEventListener('mouseleave', () => { if (!mouse.active) { mouse.x = null; mouse.y = null; } });
+
+            draw();
+        }
+
+        // Initialize Drag and Drop after window loads
+        window.addEventListener('DOMContentLoaded', () => {
+            const bookcase = document.getElementById('bookcase');
+            if (bookcase && typeof Sortable !== 'undefined') {
+                bookcaseSortable = new Sortable(bookcase, {
+                    group: 'shelves',
+                    animation: 250,
+                    handle: '.shelf-drag-handle',
+                    ghostClass: 'opacity-50',
+                    disabled: true, // Default to Read Mode
+                    draggable: '.shelf-tier'
+                });
+            }
+
+            // Initialize all existing rows
+            document.querySelectorAll('.shelf-row').forEach(row => {
+                initSortableOnRow(row);
+            });
+
+            // Set initial visibility (Read Mode defaults)
+            updateShelfVisibility();
+
+            // Initialize Semantic Threads canvas simulation
+            initThreadsCanvas();
+        });
+    </script>
+</body>
+
+</html>
