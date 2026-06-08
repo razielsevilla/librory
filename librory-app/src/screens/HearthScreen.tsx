@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import { useLibraryStore } from '../store/library';
 import { useUIStore } from '../store/ui';
 import { useTheme } from '../design/ThemeProvider';
@@ -12,6 +12,8 @@ export default function HearthScreen() {
   const setActiveBookId = useUIStore(state => state.setActiveBookId);
   const { lightImpact } = useHaptics();
   const navigate = useNavigate();
+  
+  const emberRef = useRef<HTMLDivElement>(null);
   
   const { setTheme } = useTheme();
   const [ambientMenuOpen, setAmbientMenuOpen] = useState(false);
@@ -32,6 +34,39 @@ export default function HearthScreen() {
     lightImpact();
     if (ember) {
       updateEmber({ ...ember, fuel: Math.min(100, ember.fuel + 5), lastIgnitedAt: Date.now() });
+    }
+    
+    if (emberRef.current) {
+      const emberNode = emberRef.current;
+      emberNode.style.transform = 'scale(1.2)';
+      emberNode.style.filter = 'drop-shadow(0 0 80px rgba(255, 175, 40, 1))';
+      
+      const spark = document.createElement('div');
+      spark.className = 'absolute w-3 h-3 bg-white rounded-full opacity-80 mix-blend-screen pointer-events-none transition-all duration-1000 ease-out z-20';
+      
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 50 + Math.random() * 80;
+      const tx = Math.cos(angle) * distance;
+      const ty = Math.sin(angle) * distance - 40;
+      
+      spark.style.left = '50%';
+      spark.style.top = '50%';
+      spark.style.transform = 'translate(-50%, -50%)';
+      spark.style.filter = 'drop-shadow(0 0 10px rgba(255, 200, 100, 1))';
+      
+      emberNode.parentElement?.appendChild(spark);
+      
+      requestAnimationFrame(() => {
+          spark.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`;
+          spark.style.opacity = '0';
+      });
+      
+      setTimeout(() => spark.remove(), 1000);
+      
+      setTimeout(() => {
+          emberNode.style.transform = 'scale(1)';
+          emberNode.style.filter = 'drop-shadow(0 0 55px rgba(255, 175, 40, 0.95))';
+      }, 300);
     }
   };
 
@@ -85,7 +120,7 @@ export default function HearthScreen() {
           {/* Landing Page Ember Visual */}
           <div className="relative w-full flex items-center justify-center py-8 mb-4 cursor-pointer" onClick={handleIgnite}>
               <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-r from-[rgba(255,165,0,0.1)] to-transparent pointer-events-none"></div>
-              <div id="emberGraphic" className="w-[120px] h-[120px] rounded-full transition-all duration-500 animate-orb-pulse" style={{
+              <div ref={emberRef} id="emberGraphic" className="w-[120px] h-[120px] rounded-full transition-all duration-500 animate-orb-pulse" style={{
                   background: 'radial-gradient(circle, #FFFFFF 0%, #FFEFA6 20%, #FFA500 50%, var(--ember) 75%, transparent 88%)',
                   filter: 'drop-shadow(0 0 55px rgba(255, 175, 40, 0.95))'
               }}></div>

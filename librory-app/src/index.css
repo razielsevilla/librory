@@ -164,3 +164,13 @@ body {
   content: "]";
   @apply ml-2 text-accent-soft font-sans;
 }
+
+@keyframes orb-pulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 45px rgba(255, 175, 40, 0.8)); }
+  50% { transform: scale(1.03); filter: drop-shadow(0 0 65px rgba(255, 175, 40, 1)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 45px rgba(255, 175, 40, 0.8)); }
+}
+
+.animate-orb-pulse {
+  animation: orb-pulse 4s ease-in-out infinite;
+}
