@@ -38,6 +38,10 @@ export default function HearthScreen() {
     
     if (emberRef.current) {
       const emberNode = emberRef.current;
+      
+      // Temporarily remove keyframe animation so transition can take effect
+      emberNode.classList.remove('animate-orb-pulse');
+      
       emberNode.style.transform = 'scale(1.2)';
       emberNode.style.filter = 'drop-shadow(0 0 80px rgba(255, 175, 40, 1))';
       
@@ -66,6 +70,12 @@ export default function HearthScreen() {
       setTimeout(() => {
           emberNode.style.transform = 'scale(1)';
           emberNode.style.filter = 'drop-shadow(0 0 55px rgba(255, 175, 40, 0.95))';
+          
+          setTimeout(() => {
+             emberNode.classList.add('animate-orb-pulse');
+             emberNode.style.transform = '';
+             emberNode.style.filter = '';
+          }, 500);
       }, 300);
     }
   };
