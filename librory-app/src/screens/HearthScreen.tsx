@@ -39,11 +39,8 @@ export default function HearthScreen() {
     if (emberRef.current) {
       const emberNode = emberRef.current;
       
-      // Temporarily remove keyframe animation so transition can take effect
-      emberNode.classList.remove('animate-orb-pulse');
-      
       emberNode.style.transform = 'scale(1.2)';
-      emberNode.style.filter = 'drop-shadow(0 0 80px rgba(255, 175, 40, 1))';
+      emberNode.style.filter = 'drop-shadow(0 0 40px rgba(255, 175, 40, 0.6))';
       
       const spark = document.createElement('div');
       spark.className = 'absolute w-3 h-3 bg-white rounded-full opacity-80 mix-blend-screen pointer-events-none transition-all duration-1000 ease-out z-20';
@@ -69,13 +66,7 @@ export default function HearthScreen() {
       
       setTimeout(() => {
           emberNode.style.transform = 'scale(1)';
-          emberNode.style.filter = 'drop-shadow(0 0 55px rgba(255, 175, 40, 0.95))';
-          
-          setTimeout(() => {
-             emberNode.classList.add('animate-orb-pulse');
-             emberNode.style.transform = '';
-             emberNode.style.filter = '';
-          }, 500);
+          emberNode.style.filter = 'drop-shadow(0 0 0px transparent)';
       }, 300);
     }
   };
@@ -130,10 +121,12 @@ export default function HearthScreen() {
           {/* Landing Page Ember Visual */}
           <div className="relative w-full flex items-center justify-center py-8 mb-4 cursor-pointer" onClick={handleIgnite}>
               <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-r from-[rgba(255,165,0,0.1)] to-transparent pointer-events-none"></div>
-              <div ref={emberRef} id="emberGraphic" className="w-[120px] h-[120px] rounded-full transition-all duration-500 animate-orb-pulse" style={{
-                  background: 'radial-gradient(circle, #FFFFFF 0%, #FFEFA6 20%, #FFA500 50%, var(--ember) 75%, transparent 88%)',
-                  filter: 'drop-shadow(0 0 55px rgba(255, 175, 40, 0.95))'
-              }}></div>
+              <div ref={emberRef} className="transition-all duration-500 flex items-center justify-center relative">
+                  <div id="emberGraphic" className="w-[120px] h-[120px] rounded-full animate-orb-pulse" style={{
+                      background: 'radial-gradient(circle, #FFFFFF 0%, #FFEFA6 20%, #FFA500 50%, var(--ember) 75%, transparent 88%)',
+                      filter: 'drop-shadow(0 0 55px rgba(255, 175, 40, 0.95))'
+                  }}></div>
+              </div>
           </div>
 
           <h3 className="font-serif-display text-lg font-bold mt-2" style={{ color: 'var(--ink)' }}>The Reading Fire Is Steady</h3>
