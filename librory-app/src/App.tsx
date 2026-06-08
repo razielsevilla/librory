@@ -11,6 +11,11 @@ import ScannerScreen from './screens/ScannerScreen';
 import InsightsScreen from './screens/InsightsScreen';
 import SettingsScreen from './screens/SettingsScreen';
 
+import { BookDetailOverlay } from './overlays/BookDetailOverlay';
+import { ImmersiveOverlay } from './overlays/ImmersiveOverlay';
+import { OCROverlay } from './overlays/OCROverlay';
+import { CeremonyOverlay } from './overlays/CeremonyOverlay';
+
 function App() {
   const isHydrating = useLibraryStore((state) => state.isHydrating);
   const hydrate = useLibraryStore((state) => state.hydrate);
@@ -35,6 +40,10 @@ function App() {
             <Route path="/settings" element={<SettingsScreen />} />
           </Routes>
         </ScreenFrame>
+        <BookDetailOverlay />
+        <ImmersiveOverlay />
+        <OCROverlay />
+        <CeremonyOverlay />
       </ToastProvider>
     </ThemeProvider>
   );

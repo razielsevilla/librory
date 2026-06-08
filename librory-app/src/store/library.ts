@@ -17,7 +17,7 @@ interface LibraryState {
   addNote: (note: Note) => Promise<void>;
   addSession: (session: Session) => Promise<void>;
   updateEmber: (ember: EmberState) => Promise<void>;
-  updateSettings: (settings: Settings) => Promise<void>;
+  updateSettings: (settings: Partial<Settings>) => Promise<void>;
 }
 
 export const useLibraryStore = create<LibraryState>()((set, get) => ({
@@ -82,7 +82,10 @@ export const useLibraryStore = create<LibraryState>()((set, get) => ({
   },
 
   updateSettings: async (settings) => {
-    await db.setKV('settings', settings);
-    set({ settings });
+    const current = get().settings;
+    if (!current) return;
+    const updated = { ...current, ...settings };
+    await db.setKV('settings', updated);
+    set({ settings: updated });
   }
 }));
