@@ -80,46 +80,55 @@ export default function HearthScreen() {
 
       <div className="dingbat-row my-8">❦</div>
 
-      {daysAway > 2 ? (
-        <div id="reentryCard"
-            className="rounded-2xl p-6 border border-[var(--rule)] bg-[var(--paper-deep)] flex flex-col gap-4 relative shadow-glow mb-10 transition-all duration-500">
-            <span className="eyebrow text-[var(--accent)]"><i className="fa-solid fa-compass mr-1.5"></i> Gentle
-                Return</span>
+      {/* The Interactive Ember Component */}
+      <div className="rounded-3xl p-6 flex flex-col items-center justify-center text-center relative bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow mb-10 transition-colors duration-700">
+          {/* Landing Page Ember Visual */}
+          <div className="relative w-full flex items-center justify-center py-8 mb-4 cursor-pointer" onClick={handleIgnite}>
+              <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-r from-[rgba(255,165,0,0.1)] to-transparent pointer-events-none"></div>
+              <div id="emberGraphic" className="w-[120px] h-[120px] rounded-full transition-all duration-500 animate-orb-pulse" style={{
+                  background: 'radial-gradient(circle, #FFFFFF 0%, #FFEFA6 20%, #FFA500 50%, var(--ember) 75%, transparent 88%)',
+                  filter: 'drop-shadow(0 0 55px rgba(255, 175, 40, 0.95))'
+              }}></div>
+          </div>
 
-            <div className="text-sm leading-relaxed">
-                <span className="drop-cap">L</span>ife gets crowded, and we completely understand. You have been
-                away for {daysAway} quiet days. Would you like to sit down with just <strong
-                    className="text-[var(--accent)]">2 pages</strong> of your current book today?
-            </div>
+          <h3 className="font-serif-display text-lg font-bold mt-2" style={{ color: 'var(--ink)' }}>The Reading Fire Is Steady</h3>
+          <p id="emberTip"
+              className="text-xs mt-1.5 leading-relaxed opacity-75 font-sans-editorial max-w-[260px]">
+              Your progress glows warmly. Tap the fire to fan its embers. Zero penalties for resting.
+          </p>
+      </div>
 
-            <div className="flex flex-col gap-2 pt-2 font-sans-editorial text-[13px] mt-1 w-full">
-                <button onClick={handleReenter}
-                    className="w-full py-2.5 rounded-lg bg-[var(--accent)] hover:opacity-90 font-semibold shadow-sm transition-all"
-                    style={{ color: 'var(--page)' }}>
-                    I am ready for 2 pages
-                </button>
-                <button onClick={handleReenter} className="w-full py-2 opacity-60 hover:opacity-100 transition-opacity italic">
-                    I will return when the time is right
-                </button>
-            </div>
-        </div>
-      ) : (
-        <div className="rounded-3xl p-6 flex flex-col items-center justify-center text-center relative bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow mb-10 transition-colors duration-700">
-            <div className="relative w-full flex items-center justify-center py-8 mb-4 cursor-pointer" onClick={handleIgnite}>
-                <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-r from-[rgba(255,165,0,0.1)] to-transparent pointer-events-none"></div>
-                <div id="emberGraphic" className="w-[120px] h-[120px] rounded-full transition-all duration-500 animate-orb-pulse" style={{
-                    background: 'radial-gradient(circle, #FFFFFF 0%, #FFEFA6 20%, #FFA500 50%, var(--ember) 75%, transparent 88%)',
-                    filter: 'drop-shadow(0 0 55px rgba(255, 175, 40, 0.95))'
-                }}></div>
-            </div>
+      {/* Re-Entry Nudge Card Component */}
+      <div id="reentryCard"
+          className="rounded-2xl p-6 border border-[var(--rule)] bg-[var(--paper-deep)] flex flex-col gap-4 relative shadow-glow mb-10 transition-all duration-500">
+          <span className="eyebrow text-[var(--accent)]"><i className="fa-solid fa-compass mr-1.5"></i> Gentle
+              Return</span>
 
-            <h3 className="font-serif-display text-lg font-bold mt-2" style={{ color: 'var(--ink)' }}>The Reading Fire Is Steady</h3>
-            <p id="emberTip"
-                className="text-xs mt-1.5 leading-relaxed opacity-75 font-sans-editorial max-w-[260px]">
-                Your progress glows warmly. Tap the fire to fan its embers. Zero penalties for resting.
-            </p>
-        </div>
-      )}
+          <div className="text-sm leading-relaxed">
+              <span className="drop-cap">L</span>ife gets crowded, and we completely understand. You have been
+              away for {daysAway > 2 ? daysAway : 4} quiet days. Would you like to sit down with just <strong
+                  className="text-[var(--accent)]">2 pages</strong> of your current book today?
+          </div>
+
+          {/* Thematic Callback (Remembrance Engine) */}
+          <div className="mt-1 p-4 bg-[var(--rule-soft)] rounded-xl border border-[var(--rule)] opacity-90 relative shadow-sm">
+              <i className="fa-solid fa-quote-left absolute top-3 right-4 text-3xl opacity-5 text-[var(--accent)]"></i>
+              <p className="text-[9px] font-sans-editorial uppercase tracking-widest text-[var(--muted)] mb-1.5">A thought from 3 months ago</p>
+              <p className="text-xs font-serif italic text-[var(--ink)] leading-relaxed">"William Stoner learns how to suffer in pure silence."</p>
+              <p className="text-[10px] font-sans-editorial mt-3 opacity-80 text-[var(--accent)] font-semibold">Perhaps <span className="italic">Dune</span> echoes this today?</p>
+          </div>
+
+          <div className="flex flex-col gap-2 pt-2 font-sans-editorial text-[13px] mt-1 w-full">
+              <button onClick={handleReenter}
+                  className="w-full py-2.5 rounded-lg bg-[var(--accent)] hover:opacity-90 font-semibold shadow-sm transition-all"
+                  style={{ color: 'var(--page)' }}>
+                  I am ready for 2 pages
+              </button>
+              <button onClick={handleReenter} className="w-full py-2 opacity-60 hover:opacity-100 transition-opacity italic">
+                  I will return when the time is right
+              </button>
+          </div>
+      </div>
 
       <hr className="border-t border-[var(--rule)] opacity-50 w-24 mx-auto mb-10" />
 
