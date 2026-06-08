@@ -16,13 +16,35 @@ import { ImmersiveOverlay } from './overlays/ImmersiveOverlay';
 import { OCROverlay } from './overlays/OCROverlay';
 import { CeremonyOverlay } from './overlays/CeremonyOverlay';
 
+import { App as CapacitorApp } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 function App() {
   const isHydrating = useLibraryStore((state) => state.isHydrating);
   const hydrate = useLibraryStore((state) => state.hydrate);
+  
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     hydrate();
   }, [hydrate]);
+
+  useEffect(() => {
+    if (Capacitor.isNativePlatform()) {
+      const backListener = CapacitorApp.addListener('backButton', () => {
+        if (location.pathname === '/') {
+          CapacitorApp.exitApp();
+        } else {
+          navigate(-1);
+        }
+      });
+      return () => {
+        backListener.then(listener => listener.remove());
+      };
+    }
+  }, [location, navigate]);
 
   if (isHydrating) {
     return <div className="h-screen w-screen bg-[#0b0806]" />;

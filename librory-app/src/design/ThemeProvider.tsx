@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Preferences } from '@capacitor/preferences';
 import type { ThemeId } from './ambient';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
 
 interface ThemeContextType {
   theme: ThemeId;
@@ -40,6 +42,25 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (!isReady) return;
     document.documentElement.setAttribute('data-theme', `ambient-${theme}`);
     Preferences.set({ key: THEME_KEY, value: theme });
+    
+    if (Capacitor.isNativePlatform()) {
+      try {
+        if (theme === 'candle' || theme === 'dusk') {
+          StatusBar.setStyle({ style: Style.Dark });
+        } else {
+          StatusBar.setStyle({ style: Style.Light });
+        }
+        const colors: Record<string, string> = {
+          paper: '#ECE2D8',
+          morning: '#E2E8E6',
+          dusk: '#E8D4C2',
+          candle: '#1A130E'
+        };
+        StatusBar.setBackgroundColor({ color: colors[theme] });
+      } catch (e) {
+        // ignore
+      }
+    }
   }, [theme, isReady]);
 
   const setTheme = (newTheme: ThemeId) => {

@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import { useUIStore } from '../store/ui';
 import confetti from 'canvas-confetti';
+import { useHaptics } from '../lib/haptics';
 
 export const CeremonyOverlay: React.FC = () => {
   const ceremonyOverlayOpen = useUIStore(state => state.ceremonyOverlayOpen);
   const setCeremonyOverlayOpen = useUIStore(state => state.setCeremonyOverlayOpen);
+  const { successNotification } = useHaptics();
 
   useEffect(() => {
     if (ceremonyOverlayOpen) {
+      successNotification();
       const duration = 3000;
       const end = Date.now() + duration;
 
@@ -37,7 +40,7 @@ export const CeremonyOverlay: React.FC = () => {
       };
       frame();
     }
-  }, [ceremonyOverlayOpen, setCeremonyOverlayOpen]);
+  }, [ceremonyOverlayOpen, setCeremonyOverlayOpen, successNotification]);
 
   if (!ceremonyOverlayOpen) return null;
 

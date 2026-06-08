@@ -4,12 +4,14 @@ import { useUIStore } from '../store/ui';
 import { EmberGraphic } from '../components/EmberGraphic';
 import { ReentryCard } from '../components/ReentryCard';
 import { BookCard } from '../components/BookCard';
+import { useHaptics } from '../lib/haptics';
 
 export default function HearthScreen() {
   const books = useLibraryStore(state => state.books);
   const ember = useLibraryStore(state => state.ember);
   const updateEmber = useLibraryStore(state => state.updateEmber);
   const setActiveBookId = useUIStore(state => state.setActiveBookId);
+  const { lightImpact } = useHaptics();
   
   const activeBooks = useMemo(() => {
     return Object.values(books)
@@ -33,6 +35,7 @@ export default function HearthScreen() {
   }, [ember]);
 
   const handleIgnite = () => {
+    lightImpact();
     if (ember) {
       updateEmber({ ...ember, fuel: Math.min(100, ember.fuel + 5), lastIgnitedAt: Date.now() });
     }
