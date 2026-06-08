@@ -31,7 +31,7 @@ export default function ShelfScreen() {
     <div className="flex flex-col h-full pt-safe animate-in fade-in duration-500">
       <div className="flex flex-col px-6 pt-6 pb-2 border-b border-[var(--border)] shrink-0">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="font-serif-display text-3xl text-[var(--ink)]">Your Shelf</h1>
+          <h1 className="font-display text-3xl text-[var(--ink)]">Your Shelf</h1>
           <button 
             onClick={() => setIsAddModalOpen(true)}
             className="p-2 rounded-full border border-[var(--border)] hover:bg-[var(--surface-sunken)] transition-colors"

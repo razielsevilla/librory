@@ -48,7 +48,7 @@ export const CeremonyOverlay: React.FC = () => {
     <div className="absolute inset-0 z-[80] pointer-events-none flex flex-col items-center justify-center bg-black/20 backdrop-blur-sm animate-in fade-in duration-500">
       <div className="bg-[var(--paper)] p-8 rounded-2xl shadow-xl flex flex-col items-center border border-[var(--border)] scale-in animate-in zoom-in-95 duration-500">
         <div className="text-4xl mb-4">✨</div>
-        <h3 className="font-serif-display text-2xl text-[var(--ink)]">Volume Sealed</h3>
+        <h3 className="font-display text-2xl text-[var(--ink)]">Volume Sealed</h3>
         <p className="font-serif italic text-[var(--muted)] mt-2">The hearth glows brighter.</p>
       </div>
     </div>

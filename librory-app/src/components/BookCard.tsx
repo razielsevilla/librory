@@ -26,7 +26,7 @@ export const BookCard: React.FC<BookCardProps> = ({ book, variant, onClick }) =>
       
       <div className="relative z-10 flex flex-col gap-1">
         <h3 className={clsx(
-          "font-serif-display font-bold leading-tight text-[var(--ink)]",
+          "font-display font-bold leading-tight text-[var(--ink)]",
           variant === 'detail' ? 'text-4xl' : 'text-2xl line-clamp-2'
         )}>
           {book.title}

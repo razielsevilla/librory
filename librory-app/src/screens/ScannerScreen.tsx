@@ -7,7 +7,7 @@ const ScannerScreen: React.FC = () => {
       <div className="flex justify-between items-start mt-2">
         <div>
           <span className="eyebrow block">Computer Vision</span>
-          <h2 className="text-4xl font-serif-display font-bold mt-1 text-[var(--ink)]">Spine Sync</h2>
+          <h2 className="text-4xl font-display font-bold mt-1 text-[var(--ink)]">Spine Sync</h2>
         </div>
       </div>
       <div className="dingbat-row my-8">❦</div>

@@ -134,7 +134,7 @@ body {
 }
 
 .drop-cap {
-  @apply float-left mr-[0.7rem] mt-[0.18rem] text-[4.5rem] font-script text-accent leading-[0.8];
+  @apply float-left mr-[0.1em] pl-[0.05em] pt-[0.1em] text-[3.5em] font-display text-accent leading-[0.8];
 }
 
 .marginalia {

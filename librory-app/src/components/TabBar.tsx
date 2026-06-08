@@ -19,7 +19,7 @@ export const TabBar: React.FC = () => {
           to={tab.to}
           className={({ isActive }) =>
             clsx(
-              "flex flex-col items-center justify-center gap-1 flex-1 h-full font-sans-editorial text-[9px] font-semibold transition-all duration-300",
+              "flex flex-col items-center justify-center gap-1 flex-1 h-full font-sans text-[9px] font-semibold transition-all duration-300",
               isActive 
                 ? "text-[var(--accent)] opacity-100" 
                 : "text-[var(--muted)] opacity-75 hover:opacity-100"

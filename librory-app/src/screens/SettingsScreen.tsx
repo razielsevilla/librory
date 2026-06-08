@@ -22,7 +22,7 @@ export default function SettingsScreen() {
     <div className="flex flex-col h-full pt-safe animate-in fade-in duration-500 overflow-y-auto cozy-scroll">
       <div className="p-6 pb-24 max-w-2xl mx-auto w-full">
         <span className="eyebrow mb-2 mt-8">Configuration</span>
-        <h1 className="font-serif-display text-4xl text-[var(--ink)] mb-12">
+        <h1 className="font-display text-4xl text-[var(--ink)] mb-12">
           Sanctuary Settings
         </h1>
 

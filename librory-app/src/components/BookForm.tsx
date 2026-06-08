@@ -35,7 +35,7 @@ export const BookForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     <div className="absolute inset-0 z-[60] bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-6 animate-in fade-in duration-300">
       <div className="w-full max-w-md bg-[var(--paper)] rounded-t-2xl sm:rounded-2xl p-6 shadow-xl border border-[var(--border)] animate-in slide-in-from-bottom-8 sm:slide-in-from-bottom-0 sm:zoom-in-95 duration-300">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="font-serif-display text-2xl text-[var(--ink)]">Add Volume</h2>
+          <h2 className="font-display text-2xl text-[var(--ink)]">Add Volume</h2>
           <button onClick={onClose} className="p-2 -mr-2 text-[var(--muted)] hover:text-[var(--ink)]">
             <X className="w-6 h-6" />
           </button>

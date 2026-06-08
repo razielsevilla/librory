@@ -18,7 +18,7 @@ export const OCROverlay: React.FC = () => {
       </button>
 
       <Camera className="w-16 h-16 text-white/30 mb-6" />
-      <h3 className="font-serif-display text-3xl mb-2 text-center">Quote Snap</h3>
+      <h3 className="font-display text-3xl mb-2 text-center">Quote Snap</h3>
       <p className="font-sans text-sm tracking-widest uppercase text-white/50 text-center">
         Coming in v2
       </p>

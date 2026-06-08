@@ -72,7 +72,7 @@ export const ImmersiveOverlay: React.FC = () => {
       <div className="relative z-10 flex flex-col items-center max-w-sm text-center">
         <Flame className="w-16 h-16 text-[var(--ember)] animate-pulse mb-8 opacity-80" />
         
-        <h2 className="text-3xl font-serif-display text-[var(--ink)] mb-2">
+        <h2 className="text-3xl font-display text-[var(--ink)] mb-2">
           {book.title}
         </h2>
         <p className="font-serif italic text-[var(--muted)] mb-12">

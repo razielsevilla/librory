@@ -9,7 +9,7 @@ export const ReentryCard: React.FC<ReentryCardProps> = ({ daysAway, onReenter })
   return (
     <div className="p-8 rounded-xl bg-[var(--surface-sunken)] border border-[var(--border)] text-center shadow-inner flex flex-col items-center gap-4">
       <span className="text-3xl opacity-50">🕯️</span>
-      <h3 className="font-serif-display text-2xl font-bold text-[var(--ink)]">
+      <h3 className="font-display text-2xl font-bold text-[var(--ink)]">
         The hearth has cooled.
       </h3>
       <p className="font-serif italic text-[var(--muted)]">

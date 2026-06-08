@@ -2,7 +2,7 @@ import React from 'react';
 import { clsx } from 'clsx';
 
 export const DropCap: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => (
-  <span className={clsx("dropcap float-left text-5xl font-serif-display font-bold leading-none pr-2 pt-1 text-[var(--ember)]", className)}>
+  <span className={clsx("dropcap float-left text-5xl font-display font-bold leading-none pr-2 pt-1 text-[var(--ember)]", className)}>
     {children}
   </span>
 );

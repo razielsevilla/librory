@@ -61,7 +61,7 @@ export default function InsightsScreen() {
           <div className="flex justify-between items-start">
             <div>
               <span className="eyebrow mb-2">Semantic Threads</span>
-              <h1 className="font-serif-display text-4xl text-[var(--ink)] drop-shadow-md">
+              <h1 className="font-display text-4xl text-[var(--ink)] drop-shadow-md">
                 Insights
               </h1>
             </div>

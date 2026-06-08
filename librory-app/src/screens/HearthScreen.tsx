@@ -86,7 +86,7 @@ export default function HearthScreen() {
       <div className="flex justify-between items-start mt-2">
           <div>
               <span className="eyebrow block">Today's Refuge</span>
-              <h1 className="text-4xl font-serif-display font-bold mt-1 text-[var(--ink)]">The Hearth</h1>
+              <h1 className="text-4xl font-display font-bold mt-1 text-[var(--ink)]">The Hearth</h1>
           </div>
 
           {/* Manual Lighting override controls */}
@@ -129,9 +129,9 @@ export default function HearthScreen() {
               </div>
           </div>
 
-          <h3 className="font-serif-display text-lg font-bold mt-2" style={{ color: 'var(--ink)' }}>The Reading Fire Is Steady</h3>
+          <h3 className="font-display text-lg font-bold mt-2" style={{ color: 'var(--ink)' }}>The Reading Fire Is Steady</h3>
           <p id="emberTip"
-              className="text-xs mt-1.5 leading-relaxed opacity-75 font-sans-editorial max-w-[260px]">
+              className="text-xs mt-1.5 leading-relaxed opacity-75 font-sans max-w-[260px]">
               Your progress glows warmly. Tap the fire to fan its embers. Zero penalties for resting.
           </p>
       </div>
@@ -151,18 +151,18 @@ export default function HearthScreen() {
           {/* Thematic Callback (Remembrance Engine) */}
           <div className="mt-1 p-4 bg-[var(--rule-soft)] rounded-xl border border-[var(--rule)] opacity-90 relative shadow-sm">
               <i className="fa-solid fa-quote-left absolute top-3 right-4 text-3xl opacity-5 text-[var(--accent)]"></i>
-              <p className="text-[9px] font-sans-editorial uppercase tracking-widest text-[var(--muted)] mb-1.5">A thought from 3 months ago</p>
+              <p className="text-[9px] font-sans uppercase tracking-widest text-[var(--muted)] mb-1.5">A thought from 3 months ago</p>
               <p className="text-xs font-serif italic text-[var(--ink)] leading-relaxed">"William Stoner learns how to suffer in pure silence."</p>
-              <p className="text-[10px] font-sans-editorial mt-3 opacity-80 text-[var(--accent)] font-semibold">Perhaps <span className="italic">Dune</span> echoes this today?</p>
+              <p className="text-[10px] font-sans mt-3 opacity-80 text-[var(--accent)] font-semibold">Perhaps <span className="italic">Dune</span> echoes this today?</p>
           </div>
 
-          <div className="flex flex-col gap-2 pt-2 font-sans-editorial text-[13px] mt-1 w-full">
+          <div className="flex flex-col gap-2 pt-2 font-sans text-[13px] mt-1 w-full">
               <button onClick={handleReenter}
                   className="w-full py-2.5 rounded-lg bg-[var(--accent)] hover:opacity-90 font-semibold shadow-sm transition-all"
                   style={{ color: 'var(--page)' }}>
                   I am ready for 2 pages
               </button>
-              <button onClick={handleReenter} className="w-full py-2 opacity-60 hover:opacity-100 transition-opacity italic">
+              <button onClick={handleReenter} className="w-full py-2 opacity-60 hover:opacity-100 transition-opacity italic font-serif">
                   I will return when the time is right
               </button>
           </div>
@@ -196,16 +196,16 @@ export default function HearthScreen() {
                             {/* Bookmark Ribbon */}
                             <div className="absolute top-0 right-4 w-2 h-12 bg-[var(--accent)] shadow-md rounded-b-sm z-10 opacity-90 group-hover:h-14 transition-all duration-300"></div>
                             
-                            <span className="font-serif-display text-base font-bold bg-clip-text text-transparent relative z-20" style={{ backgroundImage: `linear-gradient(to bottom right, ${textColor1}, ${textColor2})` }}>{book.title}</span>
+                            <span className="font-display text-base font-bold bg-clip-text text-transparent relative z-20" style={{ backgroundImage: `linear-gradient(to bottom right, ${textColor1}, ${textColor2})` }}>{book.title}</span>
                             <span
-                                className="text-[10px] font-sans-editorial font-semibold relative z-20 tracking-wider uppercase" style={{ color: `${textColor1}99` }}>{book.author}</span>
+                                className="text-[10px] font-sans font-semibold relative z-20 tracking-wider uppercase" style={{ color: `${textColor1}99` }}>{book.author}</span>
                         </div>
                         <div className="flex items-center justify-between">
                             <div>
                                 <span className="eyebrow block text-[9px] opacity-70">Bookmarks</span>
-                                <span className="text-xs font-serif-display font-bold mt-0.5 text-[var(--accent)]">{percent}%</span>
+                                <span className="text-xs font-display font-bold mt-0.5 text-[var(--accent)]">{percent}%</span>
                             </div>
-                            <span className="text-[10px] font-sans-editorial opacity-60">p. {book.page}</span>
+                            <span className="text-[10px] font-sans opacity-60">p. {book.page}</span>
                         </div>
                     </div>
                   );
