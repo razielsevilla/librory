@@ -60,7 +60,7 @@ Librory is built around a simple, comforting rhythm:
 
 ### 🧠 Librory Insight Engine
 * **Physical-to-Digital OCR:** Snap a photo of any physical page to highlight and digitize your favorite quotes instantly. 
-* **Semantic Threads:** View a cozy, physics-based interactive web of floating books connected by similar themes (e.g., *grief*, *hope*, *power*) derived from your personal notes and quotes.
+* **Semantic Threads:** View a cozy, physics-based interactive web of floating books connected by similar themes (e.g., *grief*, *hope*, *power*). This "Constellation of Thought" dynamically adapts to your **Reading Persona**, reshaping the graph to reflect your unique reading style and semantic journey.
 * **The Remembrance Engine:** Receive gentle thematic callbacks on your Re-Entry Card, connecting what you are reading now with thoughts you recorded months ago in other books.
 
 ### 🎯 Mindful Motivation

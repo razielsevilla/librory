@@ -784,20 +784,23 @@
                 <div class="dingbat-row my-8 shrink-0">❦</div>
 
                 <!-- Reading Persona module -->
-                <div class="rounded-2xl p-5 bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow mb-6 relative overflow-hidden shrink-0">
+                <div class="rounded-2xl p-5 bg-[var(--paper-deep)] border border-[var(--rule)] shadow-glow mb-6 relative overflow-hidden shrink-0 cursor-pointer hover:border-[var(--accent)] transition-all group" onclick="cyclePersona()">
                     <!-- Subtle decorative background stamp -->
-                    <i class="fa-solid fa-feather-pointed absolute -right-4 -top-4 text-8xl opacity-5" style="color: var(--ink);"></i>
+                    <i class="fa-solid fa-feather-pointed absolute -right-4 -top-4 text-8xl opacity-5 group-hover:scale-110 transition-transform duration-500" style="color: var(--ink);"></i>
                     
-                    <span class="eyebrow text-[var(--accent)]"><i class="fa-solid fa-feather mr-1.5"></i> Reading Persona</span>
-                    <h3 class="font-serif-display text-2xl font-bold mt-2 mb-3 text-[var(--ink)]">The Deep Diver</h3>
+                    <div class="flex justify-between items-start relative z-10">
+                        <span class="eyebrow text-[var(--accent)]"><i class="fa-solid fa-feather mr-1.5"></i> Reading Persona</span>
+                        <div class="text-[10px] text-[var(--muted)] flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity"><i class="fa-solid fa-rotate text-[8px]"></i> Cycle</div>
+                    </div>
+                    <h3 id="personaTitle" class="font-serif-display text-2xl font-bold mt-2 mb-3 text-[var(--ink)] relative z-10">The Deep Diver</h3>
                     
-                    <div class="border-t border-b border-[var(--rule-soft)] py-4 my-2">
-                        <p class="text-xs leading-relaxed opacity-85 font-serif text-[var(--ink)]">
+                    <div class="border-t border-b border-[var(--rule-soft)] py-4 my-2 relative z-10">
+                        <p id="personaDesc" class="text-xs leading-relaxed opacity-85 font-serif text-[var(--ink)]">
                             <span class="drop-cap">Y</span>ou submerge deeply into singular, quiet prose worlds. Your pages-per-session velocity is
                             steady, preferring long quiet reflections over quick comparative tracking runs.
                         </p>
                     </div>
-                    <div class="text-[10px] font-sans-editorial bracketed mt-2 inline-block">Sanctuary Vibe: Dusk Candlelight</div>
+                    <div class="text-[10px] font-sans-editorial bracketed mt-2 inline-block relative z-10">Sanctuary Vibe: <span id="personaVibe">Dusk Candlelight</span></div>
                 </div>
 
                 <!-- Interactive Constellation Canvas Area -->
@@ -1539,6 +1542,84 @@
         let draggedNode = null;
         let animationFrameId = null;
 
+        const readingPersonas = [
+            {
+                title: 'The Deep Diver',
+                description: '<span class="drop-cap">Y</span>ou submerge deeply into singular, quiet prose worlds. Your pages-per-session velocity is steady, preferring long quiet reflections over quick comparative tracking runs.',
+                vibe: 'Dusk Candlelight',
+                nodes: [
+                    { id: 'Stoner', label: 'Stoner', isTheme: false, r: 22 },
+                    { id: 'Dune', label: 'Dune', isTheme: false, r: 22 },
+                    { id: 'People', label: 'Normal People', isTheme: false, r: 24 },
+                    { id: 'Grief', label: 'Grief', isTheme: true, r: 26 },
+                    { id: 'Solitude', label: 'Solitude', isTheme: true, r: 26 },
+                    { id: 'Fate', label: 'Fate', isTheme: true, r: 26 }
+                ],
+                links: [
+                    { source: 'Stoner', target: 'Grief', length: 65 },
+                    { source: 'Stoner', target: 'Solitude', length: 60 },
+                    { source: 'People', target: 'Solitude', length: 70 },
+                    { source: 'People', target: 'Grief', length: 65 },
+                    { source: 'Dune', target: 'Fate', length: 80 }
+                ]
+            },
+            {
+                title: 'The Cross-Pollinator',
+                description: '<span class="drop-cap">Y</span>ou read widely across disciplines, finding unusual intersections. You frequently jump between multiple active books, hunting for synthesis and conceptual breakthroughs.',
+                vibe: 'Morning Light',
+                nodes: [
+                    { id: 'Thinking', label: 'Thinking, Fast...', isTheme: false, r: 20 },
+                    { id: 'Sapiens', label: 'Sapiens', isTheme: false, r: 22 },
+                    { id: 'Origin', label: 'Origin of Species', isTheme: false, r: 20 },
+                    { id: 'Evolution', label: 'Evolution', isTheme: true, r: 28 },
+                    { id: 'Bias', label: 'Cognitive Bias', isTheme: true, r: 24 },
+                    { id: 'History', label: 'Deep History', isTheme: true, r: 26 }
+                ],
+                links: [
+                    { source: 'Thinking', target: 'Bias', length: 60 },
+                    { source: 'Sapiens', target: 'History', length: 70 },
+                    { source: 'Sapiens', target: 'Evolution', length: 65 },
+                    { source: 'Origin', target: 'Evolution', length: 60 },
+                    { source: 'Origin', target: 'History', length: 80 },
+                    { source: 'Thinking', target: 'Evolution', length: 90 }
+                ]
+            },
+            {
+                title: 'The Aesthetic Wanderer',
+                description: '<span class="drop-cap">Y</span>ou are drawn to the poetic and the surreal. You linger on beautiful sentences and emotional resonance rather than rigid plot mechanics.',
+                vibe: 'Golden Dusk',
+                nodes: [
+                    { id: 'Circe', label: 'Circe', isTheme: false, r: 22 },
+                    { id: 'Piranesi', label: 'Piranesi', isTheme: false, r: 24 },
+                    { id: 'Ocean', label: 'Ocean at the End', isTheme: false, r: 20 },
+                    { id: 'Myth', label: 'Mythology', isTheme: true, r: 26 },
+                    { id: 'Memory', label: 'Memory', isTheme: true, r: 26 },
+                    { id: 'Magic', label: 'Magic Realism', isTheme: true, r: 26 }
+                ],
+                links: [
+                    { source: 'Circe', target: 'Myth', length: 65 },
+                    { source: 'Piranesi', target: 'Memory', length: 70 },
+                    { source: 'Piranesi', target: 'Magic', length: 60 },
+                    { source: 'Ocean', target: 'Memory', length: 65 },
+                    { source: 'Ocean', target: 'Magic', length: 75 },
+                    { source: 'Circe', target: 'Magic', length: 85 }
+                ]
+            }
+        ];
+
+        let currentPersonaIndex = 0;
+
+        function cyclePersona() {
+            currentPersonaIndex = (currentPersonaIndex + 1) % readingPersonas.length;
+            const p = readingPersonas[currentPersonaIndex];
+            
+            document.getElementById('personaTitle').innerText = p.title;
+            document.getElementById('personaDesc').innerHTML = p.description;
+            document.getElementById('personaVibe').innerText = p.vibe;
+            
+            initSpringCanvas();
+        }
+
         function initSpringCanvas() {
             canvas = document.getElementById('threadsCanvas');
             if (!canvas) return;
@@ -1553,25 +1634,26 @@
             const cx = canvas.width / 2;
             const cy = canvas.height / 2;
 
-            // Define cohesive book and semantic keyword node configurations
-            physicsNodes = [
-                { id: 'Stoner', label: 'Stoner', isTheme: false, x: cx - 80, y: cy - 40, vx: 0, vy: 0, radius: 22 },
-                { id: 'Dune', label: 'Dune', isTheme: false, x: cx + 85, y: cy - 70, vx: 0, vy: 0, radius: 22 },
-                { id: 'People', label: 'Normal People', isTheme: false, x: cx - 50, y: cy + 60, vx: 0, vy: 0, radius: 24 },
+            const p = readingPersonas[currentPersonaIndex];
 
-                // Unified semantic themes derived from local notes mapping
-                { id: 'Grief', label: 'Grief', isTheme: true, x: cx - 20, y: cy - 20, vx: 0, vy: 0, radius: 26 },
-                { id: 'Solitude', label: 'Solitude', isTheme: true, x: cx - 110, y: cy + 20, vx: 0, vy: 0, radius: 26 },
-                { id: 'Fate', label: 'Fate', isTheme: true, x: cx + 30, y: cy + 40, vx: 0, vy: 0, radius: 26 }
-            ];
+            // Define cohesive book and semantic keyword node configurations from active persona
+            physicsNodes = p.nodes.map((n, i) => {
+                // Determine initial positions circularly to avoid identical starting coordinates
+                const angle = (i / p.nodes.length) * Math.PI * 2;
+                const dist = 40 + (i % 2 === 0 ? 30 : -10);
+                return {
+                    id: n.id,
+                    label: n.label,
+                    isTheme: n.isTheme,
+                    x: cx + Math.cos(angle) * dist,
+                    y: cy + Math.sin(angle) * dist,
+                    vx: 0,
+                    vy: 0,
+                    radius: n.r
+                };
+            });
 
-            physicsLinks = [
-                { source: 'Stoner', target: 'Grief', length: 65 },
-                { source: 'Stoner', target: 'Solitude', length: 60 },
-                { source: 'People', target: 'Solitude', length: 70 },
-                { source: 'People', target: 'Grief', length: 65 },
-                { source: 'Dune', target: 'Fate', length: 80 }
-            ];
+            physicsLinks = p.links.map(l => ({ ...l }));
 
             // Attaching touch & pointer handles directly
             canvas.onmousedown = (e) => onInteractionStart(e, parentRect);
@@ -1926,166 +2008,7 @@
             initSortableOnRow(newTier.querySelector('.shelf-row'));
         }
 
-        // Semantic Threads Canvas Simulation
-        function initThreadsCanvas() {
-            const canvas = document.getElementById('threadsCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            
-            function getThemeColor(varName, fallback) {
-                const val = getComputedStyle(document.body).getPropertyValue(varName).trim();
-                return val ? val : fallback;
-            }
 
-            let width = 0, height = 0;
-            let draggedNode = null;
-            let mouse = { x: null, y: null, active: false };
-
-            const colors = { book: '#A87658', theme: '#6E8A7F', note: '#C9B07F' };
-            const nodes = [
-                { label: 'Grief & Mourning', type: 'theme', x: 0.28, y: 0.34, r: 24 },
-                { label: 'Radical Hope', type: 'theme', x: 0.64, y: 0.28, r: 22 },
-                { label: 'Productive Solitude', type: 'theme', x: 0.58, y: 0.68, r: 22 },
-                { label: 'The Bell Jar', type: 'book', x: 0.18, y: 0.53, r: 15 },
-                { label: 'Circe', type: 'book', x: 0.39, y: 0.18, r: 15 },
-                { label: 'Briefly Gorgeous', type: 'book', x: 0.42, y: 0.48, r: 15 },
-                { label: 'Piranesi', type: 'book', x: 0.77, y: 0.52, r: 15 },
-                { label: 'Quiet Atrium', type: 'note', x: 0.77, y: 0.22, r: 11 },
-                { label: 'Return to Dust', type: 'note', x: 0.28, y: 0.76, r: 11 },
-                { label: 'Warm Light', type: 'note', x: 0.47, y: 0.82, r: 11 }
-            ].map(n => ({ ...n, vx: 0, vy: 0, _init: false }));
-
-            const links = [
-                [0, 3], [0, 5], [0, 8], [1, 2], [1, 4], [1, 6], [1, 7],
-                [2, 5], [2, 6], [2, 9], [3, 5], [4, 7], [5, 8], [6, 7]
-            ];
-
-            function checkResize() {
-                const newWidth = canvas.parentElement.clientWidth;
-                const newHeight = canvas.parentElement.clientHeight;
-                const dpr = window.devicePixelRatio || 1;
-                
-                if (newWidth > 0 && newHeight > 0 && (width !== newWidth || height !== newHeight)) {
-                    width = newWidth;
-                    height = newHeight;
-                    canvas.width = width * dpr;
-                    canvas.height = height * dpr;
-                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-                    
-                    nodes.forEach(n => {
-                        if (!n._init) {
-                            n.x *= width;
-                            n.y *= height;
-                            n._init = true;
-                        }
-                    });
-                }
-            }
-            window.addEventListener('resize', checkResize);
-
-            function draw() {
-                checkResize();
-                if (width === 0 || height === 0) {
-                    requestAnimationFrame(draw);
-                    return;
-                }
-                
-                ctx.clearRect(0, 0, width, height);
-
-                const linkColor = getThemeColor('--rule', 'rgba(128,103,82,0.15)');
-                const textColor = getThemeColor('--ink', '#221A12');
-
-                links.forEach(([a, b]) => {
-                    const na = nodes[a], nb = nodes[b];
-                    const dx = nb.x - na.x; const dy = nb.y - na.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-                    const force = (dist - 120) * 0.0003;
-                    
-                    if (na !== draggedNode) { na.vx += dx * force; na.vy += dy * force; }
-                    if (nb !== draggedNode) { nb.vx -= dx * force; nb.vy -= dy * force; }
-
-                    ctx.beginPath(); ctx.moveTo(na.x, na.y); ctx.lineTo(nb.x, nb.y);
-                    ctx.strokeStyle = linkColor; ctx.lineWidth = 1.2; ctx.stroke();
-                });
-
-                nodes.forEach((n, i) => {
-                    if (n !== draggedNode) {
-                        n.vx += Math.sin(Date.now() / 1500 + i) * 0.01;
-                        n.vy += Math.cos(Date.now() / 1600 + i) * 0.01;
-                        n.vx += (width / 2 - n.x) * 0.00005;
-                        n.vy += (height / 2 - n.y) * 0.00005;
-
-                        if (mouse.x !== null && !mouse.active) {
-                            const dx = mouse.x - n.x, dy = mouse.y - n.y;
-                            const dist = Math.sqrt(dx * dx + dy * dy);
-                            if (dist < 150) { n.vx += dx * 0.00045; n.vy += dy * 0.00045; }
-                        }
-
-                        n.x += n.vx; n.y += n.vy;
-                        n.vx *= 0.94; n.vy *= 0.94;
-
-                        if (n.x < n.r) { n.x = n.r; n.vx *= -0.5; }
-                        if (n.x > width - n.r) { n.x = width - n.r; n.vx *= -0.5; }
-                        if (n.y < n.r) { n.y = n.r; n.vy *= -0.5; }
-                        if (n.y > height - n.r) { n.y = height - n.r; n.vy *= -0.5; }
-                    }
-
-                    ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 5, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(255,255,255,0.05)'; ctx.fill();
-
-                    ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-                    ctx.fillStyle = colors[n.type]; 
-                    ctx.globalAlpha = n.type === 'theme' ? 0.9 : 0.8; 
-                    ctx.fill();
-                    ctx.globalAlpha = 1;
-
-                    ctx.fillStyle = textColor;
-                    ctx.font = n.type === 'theme' ? '600 11px "Libre Franklin", sans-serif' : '500 10px "Libre Franklin", sans-serif';
-                    ctx.textAlign = 'center'; 
-                    ctx.fillText(n.label, n.x, n.y + 4);
-                });
-
-                requestAnimationFrame(draw);
-            }
-
-            const getCoords = e => {
-                const r = canvas.getBoundingClientRect();
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                return { x: clientX - r.left, y: clientY - r.top };
-            };
-
-            const onMove = e => {
-                const coords = getCoords(e);
-                mouse.x = coords.x; mouse.y = coords.y;
-                if (mouse.active && draggedNode) {
-                    draggedNode.x = mouse.x; draggedNode.y = mouse.y;
-                }
-            };
-
-            const onStart = e => {
-                mouse.active = true; 
-                const coords = getCoords(e);
-                mouse.x = coords.x; mouse.y = coords.y;
-                for (let n of nodes) {
-                    if (Math.sqrt((mouse.x - n.x) ** 2 + (mouse.y - n.y) ** 2) < n.r + 10) {
-                        draggedNode = n; break;
-                    }
-                }
-            };
-
-            const onEnd = () => { mouse.active = false; draggedNode = null; mouse.x = null; mouse.y = null; };
-
-            canvas.addEventListener('mousemove', onMove); 
-            canvas.addEventListener('mousedown', onStart);
-            window.addEventListener('mouseup', onEnd);
-            canvas.addEventListener('touchmove', onMove, { passive: true }); 
-            canvas.addEventListener('touchstart', onStart, { passive: true });
-            window.addEventListener('touchend', onEnd);
-            canvas.addEventListener('mouseleave', () => { if (!mouse.active) { mouse.x = null; mouse.y = null; } });
-
-            draw();
-        }
 
         // Initialize Drag and Drop after window loads
         window.addEventListener('DOMContentLoaded', () => {
@@ -2109,8 +2032,7 @@
             // Set initial visibility (Read Mode defaults)
             updateShelfVisibility();
 
-            // Initialize Semantic Threads canvas simulation
-            initThreadsCanvas();
+
         });
     </script>
 </body>
