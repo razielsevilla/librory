@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root, [data-theme="ambient-paper"] {
+  --page: #ECE2D8;
+  --paper: #F4ECE1;
+  --paper-deep: #E5D8C8;
+  --ink: #221A12;
+  --ink-soft: #4A3B2C;
+  --muted: #7A6754;
+  --rule: #B6A493;
+  --rule-soft: #D8C8B5;
+  --accent: #8B5A2B;
+  --accent-soft: #C9A47A;
+  --ember: #C8612A;
+  --glow: rgba(139, 90, 43, 0.18);
+  --grain-opacity: 0.30;
+  --seal-mix: rgba(139, 90, 43, 0.08);
+}
+
+[data-theme="ambient-morning"] {
+  --page: #E2E8E6;
+  --paper: #EEF2EE;
+  --paper-deep: #D8E0DD;
+  --ink: #1E2A26;
+  --ink-soft: #384840;
+  --muted: #60746D;
+  --rule: #A6B5AE;
+  --rule-soft: #C9D3CD;
+  --accent: #4F6F65;
+  --accent-soft: #9DB5AC;
+  --ember: #B85A2E;
+  --glow: rgba(79, 111, 101, 0.16);
+  --grain-opacity: 0.28;
+  --seal-mix: rgba(79, 111, 101, 0.08);
+}
+
+[data-theme="ambient-dusk"] {
+  --page: #E8D4C2;
+  --paper: #F2E4D2;
+  --paper-deep: #E0CDB7;
+  --ink: #2C1A12;
+  --ink-soft: #4E2E20;
+  --muted: #84614B;
+  --rule: #B6997F;
+  --rule-soft: #D4B79E;
+  --accent: #A04E2A;
+  --accent-soft: #D08A60;
+  --ember: #C24B1E;
+  --glow: rgba(160, 78, 42, 0.20);
+  --grain-opacity: 0.34;
+  --seal-mix: rgba(160, 78, 42, 0.08);
+}
+
+[data-theme="ambient-candle"] {
+  --page: #1A130E;
+  --paper: #221913;
+  --paper-deep: #2C2017;
+  --ink: #F1E5D2;
+  --ink-soft: #D8C7AE;
+  --muted: #A78E73;
+  --rule: #4A3A2D;
+  --rule-soft: #3A2C22;
+  --accent: #D08A4A;
+  --accent-soft: #8B5A2B;
+  --ember: #E2915A;
+  --glow: rgba(208, 138, 74, 0.28);
+  --grain-opacity: 0.22;
+  --seal-mix: rgba(208, 138, 74, 0.08);
+}
+
+body {
+  @apply transition-colors duration-700 ease-in-out;
+  background-color: var(--page);
+  color: var(--ink);
+  font-family: 'Lora', serif;
+}
+
+@layer utilities {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* App grain and vignette */
+.app-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.133  0 0 0 0 0.102  0 0 0 0 0.071  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+  mix-blend-mode: multiply;
+}
+
+[data-theme="ambient-candle"] .app-grain {
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.945  0 0 0 0 0.898  0 0 0 0 0.823  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.app-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 75%, rgba(0,0,0,0.08) 100%);
+}
+
+[data-theme="ambient-candle"] .app-vignette {
+  background: radial-gradient(circle at center, transparent 75%, rgba(0,0,0,0.25) 100%);
+}
+
+/* Editorial motifs */
+
+.eyebrow {
+  @apply font-sans text-eyebrow uppercase tracking-[0.18em] text-accent leading-[1.3];
+}
+
+.n-no {
+  @apply font-serif italic pr-1;
+}
+
+.asterism {
+  @apply text-center text-rule flex items-center justify-center gap-4 my-8;
+}
+.asterism::before, .asterism::after {
+  content: "";
+  @apply w-8 h-px bg-rule block;
+}
+
+.drop-cap {
+  @apply float-left mr-[0.7rem] mt-[0.18rem] text-[4.5rem] font-script text-accent leading-[0.8];
+}
+
+.marginalia {
+  @apply font-script text-[1.35rem] text-accent -rotate-2 leading-tight;
+}
+
+.rule-mark {
+  @apply flex items-center justify-center gap-4 text-rule my-6;
+}
+.rule-mark::before, .rule-mark::after {
+  content: "";
+  @apply w-[32px] h-px bg-rule block;
+}
+
+.dingbat-row {
+  @apply flex justify-center items-center gap-4 text-rule text-lg my-8;
+}
+
+.bracketed {
+  @apply relative inline-flex items-center justify-center;
+}
+.bracketed::before {
+  content: "[";
+  @apply mr-2 text-accent-soft font-sans;
+}
+.bracketed::after {
+  content: "]";
+  @apply ml-2 text-accent-soft font-sans;
+}
