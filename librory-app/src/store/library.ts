@@ -20,7 +20,7 @@ interface LibraryState {
   updateSettings: (settings: Settings) => Promise<void>;
 }
 
-export const useLibraryStore = create<LibraryState>((set, get) => ({
+export const useLibraryStore = create<LibraryState>()((set, get) => ({
   isHydrating: true,
   books: {},
   notes: {},

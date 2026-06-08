@@ -13,7 +13,7 @@ interface UIState {
   setEditMode: (mode: boolean) => void;
 }
 
-export const useUIStore = create<UIState>((set) => ({
+export const useUIStore = create<UIState>()((set) => ({
   activeBookId: null,
   setActiveBookId: (id) => set({ activeBookId: id }),
   immersiveOverlayOpen: false,
