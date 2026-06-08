@@ -1,43 +1,35 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Flame, BookOpen, Camera, Sparkles, Settings2 } from 'lucide-react';
 import { clsx } from 'clsx';
 
 export const TabBar: React.FC = () => {
   const tabs = [
-    { to: '/', label: 'Hearth', icon: Flame },
-    { to: '/shelf', label: 'Shelf', icon: BookOpen },
-    { to: '/scanner', label: 'Scan', icon: Camera },
-    { to: '/insights', label: 'Insights', icon: Sparkles },
-    { to: '/settings', label: 'Settings', icon: Settings2 },
+    { to: '/', label: 'Hearth', icon: 'fa-solid fa-fire-flame-curved' },
+    { to: '/shelf', label: 'Shelf', icon: 'fa-solid fa-book-bookmark' },
+    { to: '/scanner', label: 'Sync Spines', icon: 'fa-solid fa-qrcode' },
+    { to: '/insights', label: 'Threads', icon: 'fa-solid fa-circle-nodes' },
+    { to: '/settings', label: 'Settings', icon: 'fa-solid fa-sliders' },
   ];
 
   return (
-    <nav className="absolute bottom-0 w-full h-20 bg-[var(--paper-deep)] border-t border-[var(--rule)] flex justify-around items-center px-6 pb-4 pt-2 z-40 transition-colors duration-700 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] pb-safe">
-      {tabs.map((tab) => {
-        const Icon = tab.icon;
-        return (
-          <NavLink
-            key={tab.to}
-            to={tab.to}
-            className={({ isActive }) =>
-              clsx(
-                "flex flex-col items-center gap-1 transition-all duration-300",
-                isActive ? "text-[var(--accent)] transform scale-110" : "text-[var(--muted)] hover:text-[var(--accent)]"
-              )
-            }
-          >
-            {({ isActive }) => (
-              <>
-                <Icon className={clsx("w-6 h-6", !isActive && "opacity-80")} strokeWidth={isActive ? 2.5 : 2} />
-                <span className={clsx("text-[8px] font-sans tracking-widest uppercase transition-opacity", isActive ? "opacity-100 font-bold" : "opacity-0")}>
-                  {tab.label}
-                </span>
-              </>
-            )}
-          </NavLink>
-        );
-      })}
+    <nav className="absolute bottom-0 inset-x-0 h-20 bg-[var(--paper-deep)] border-t border-[var(--rule)] flex items-center justify-around px-2 z-40 select-none pb-safe">
+      {tabs.map((tab) => (
+        <NavLink
+          key={tab.to}
+          to={tab.to}
+          className={({ isActive }) =>
+            clsx(
+              "flex flex-col items-center justify-center gap-1 flex-1 h-full font-sans-editorial text-[9px] font-semibold transition-all duration-300",
+              isActive 
+                ? "text-[var(--accent)] opacity-100" 
+                : "text-[var(--muted)] opacity-75 hover:opacity-100"
+            )
+          }
+        >
+          <i className={clsx(tab.icon, "text-base")}></i>
+          <span className="tracking-wider mt-0.5">{tab.label}</span>
+        </NavLink>
+      ))}
     </nav>
   );
 };
